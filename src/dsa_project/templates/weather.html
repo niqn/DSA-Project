@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block title %}Heat Alert{% endblock %} {% block
+head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/weather.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<main class="weather-grid">
+  <!-- left side -->
+  <div class="col col-left">
+    <section class="panel" id="greetingCard">
+      <h2>
+        <span id="greeting">Hello</span>. Today is <span id="today">--</span>,
+        <span id="clock">--</span>
+      </h2>
+      <p id="temp">--°C</p>
+      <p id="level">--</p>
+    </section>
+
+    <section class="panel" id="locationChoice">
+      <h2>Choose location</h2>
+      <select id="area">
+        <!-- <option value="bacoor">Bacoor</option>
+        <option value="dasma">Dasmariñas</option>
+        <option value="imus">Imus</option>
+        <option value="gentri">General Trias</option> -->
+      </select>
+      <button id="btnLoc">Use my current location</button>
+    </section>
+  </div>
+
+  <!-- middle side -->
+  <div class="col col-middle">
+    <section class="panel" id="statsPanel">
+      <h2>Current conditions</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="stat-label"
+            ><i class="fa-solid fa-temperature-quarter"></i> Feels like</span
+          >
+          <strong id="feelsLike">--°C</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label"
+            ><i class="fa-solid fa-droplet"></i> Humidity</span
+          >
+          <strong id="humidity">--%</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label"
+            ><i class="fa-solid fa-sun"></i> UV index</span
+          >
+          <strong id="uv">--</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label"
+            ><i class="fa-solid fa-fire"></i> Peak today</span
+          >
+          <strong id="peak">--°C</strong>
+          <small id="peakTime">--</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="streakPanel">
+      <h2>Heat streak (7 days)</h2>
+      <div id="streakDots" class="streak-dots"></div>
+      <p id="streakText">--</p>
+    </section>
+  </div>
+
+  <!-- right side -->
+  <div class="col col-right">
+    <section class="panel" id="queuePanel">
+      <h2>Alert queue</h2>
+      <ul id="alertQueue"></ul>
+    </section>
+
+    <section class="panel" id="hourlyPanel">
+      <h2>Hourly heat index</h2>
+      <div id="readings"></div>
+    </section>
+  </div>
+
+  <!-- bottom side -->
+  <section class="panel panel-wide" id="tipsPanel">
+    <h2>Summary?</h2>
+    <ul id="tips"></ul>
+    <p id="summary">----</p>
+  </section>
+</main>
+
+<script src="{{ url_for('static', filename='js/weather.js') }}"></script>
+{% endblock %}
