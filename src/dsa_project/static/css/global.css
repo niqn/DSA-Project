@@ -1,0 +1,69 @@
+/* temp css */
+:root {
+    --green: #0bb758;
+    --green-dark: #008a3d;
+    --green-deep: #0a3d27;
+    --green-soft: #e6f6ed;
+    --bg: #f3f6f4;
+    --card: #ffffff;
+    --text: #1d2b24;
+    --muted: #68776f;
+    --line: #e2e8e4;
+    --danger: #c0392b;
+    --danger-soft: #fdecea;
+    --radius: 18px;
+} 
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+body > main { flex: 1 0 auto; width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+/* navigation bar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 32px;
+    background: var(--green);
+    color: #fff;
+}
+
+.navbar :focus-visible { outline-color: #fff; }
+
+.logo { display: flex; align-items: center; gap: 14px; }
+
+.logo > i {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.22);
+    font-size: 22px;
+}
+
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+.brand-name { font-size: 18px; font-weight: 800; }
+.brand-description { font-size: 13px; color: rgba(255, 255, 255, 0.85); }
