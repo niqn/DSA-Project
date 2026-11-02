@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}News Live Update{% endblock %} {%
+block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/news.css') }}"
+/>
+{% endblock %} {% block content %}
+<main class="page">
+  <a href="{{ url_for('home') }}" class="back-link"> <i class="fa-solid fa-arrow-left"></i> Back to home</a>
+
+  <h1>Bacoor News Update</h1>
+  <p>Stay updated with the latest news and updates from the city of Bacoor.</p>
+
+  {% set icons = {"Roads": "road", "Health": "heart-pulse", "Heat": "temperature-high", "Flood": "water", "Power": "bolt", "Community": "people-group", "Water": "droplet"} %}
+
+  <!-- each news item -->
+  <div class="browse-layout" id="listView">
+    <!-- category chips -->
+    <aside class="choose-category">
+      <a href="{{ url_for('news') }}" class="chip {{ 'active' if not category }}">
+        <i class="fa-solid fa-layer-group"></i> All<span class="chip-check" ><i class="fa-solid fa-check"></i></span>
+      </a>
+
+      {% for c in categories %}
+      <a href="{{ url_for('news', category=c) }}" class="chip {{ 'active' if c == category }}">
+        <i class="fa-solid fa-{{ icons.get(c, 'tag') }}"></i> {{ c }}<span class="chip-check"><i class="fa-solid fa-check"></i></span>
+      </a>
+      {% endfor %}
+    </aside>
+
+    <!-- news cards -->
+    <div class="news-cards">
+        {% if news_items %}
+        {% for item in news_items %}
+      <article
+        class="news-card tag-{{ item.tag|lower }}"
+        data-title="{{ item.title }}"
+        data-source="{{ item.source }}"
+        data-date="{{ item.date }}"
+        data-url="{{ item.url }}"
+      >
+        <div class="card-icon">
+          <i class="fa-solid fa-{{ icons.get(item.tag, 'newspaper') }}"></i>
+        </div>
+
+        <div class="card-body">
+          <span class="card-tag">{{ item.tag }}</span>
+          <small>{{ item.source }} · {{ item.date }}</small>
+          <h2>{{ item.title }}</h2>
+          <a href="{{ item.url }}" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </article>
+      {% endfor %} 
+      
+      {% else %}
+      <p class="empty">No news right now. Try again in a few minutes.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- when clicked -->
+  <section id="detail" hidden>
+    <button id="backBtn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+    <small id="dSource"></small>
+    <h2 id="dTitle"></h2>
+    <a id="dLink" target="_blank" rel="noopener">Read the full article</a>
+    <h3>Recently opened</h3>
+    <ul id="dHistory"></ul>
+  </section>
+</main>
+
+<script src="{{ url_for('static', filename='js/news.js') }}"></script>
+{% endblock %}

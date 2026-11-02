@@ -1,0 +1,10 @@
+/* temp only */
+.tag-roads     .card-icon { background: #6b7280; }
+.tag-health    .card-icon { background: #2e9e5b; }
+.tag-heat      .card-icon { background: #e8730c; }
+.tag-flood     .card-icon { background: #3b6cf6; }
+.tag-power     .card-icon { background: #d9a400; }
+.tag-community .card-icon { background: #8b5cf6; }
+.tag-water     .card-icon { background: #0ea5c6; }
+
+.empty { color: #6b7280; }
