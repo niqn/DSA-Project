@@ -1,10 +1,87 @@
-/* temp only */
-.tag-roads     .card-icon { background: #6b7280; }
-.tag-health    .card-icon { background: #2e9e5b; }
-.tag-heat      .card-icon { background: #e8730c; }
-.tag-flood     .card-icon { background: #3b6cf6; }
-.tag-power     .card-icon { background: #d9a400; }
-.tag-community .card-icon { background: #8b5cf6; }
-.tag-water     .card-icon { background: #0ea5c6; }
+.page {
+  --blue: #2563eb;
+  --blue-dark: #1e40af;
+  --blue-soft: #dbeafe;
+  --text: #1e293b;
+  --muted: #64748b;
+  --line: #e2e8f0;
 
-.empty { color: #6b7280; }
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  color: var(--text);
+}
+.page h1 { margin: 8px 0 4px; color: var(--blue-dark); }
+.back-link { color: var(--blue); text-decoration: none; }
+
+/* chips */
+.browse-layout { display: block; }
+.choose-category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--text);
+  text-decoration: none;
+}
+.chip:hover { border-color: var(--blue); }
+.chip.active { background: var(--blue); border-color: var(--blue); color: #ffffff; }
+.chip-check { display: none; }
+
+/* cards */
+.news-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.news-card {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1.5px solid var(--tag, var(--line));
+  border-radius: 12px;
+  cursor: pointer;
+}
+.news-card:hover { background: var(--tag-soft, var(--blue-soft)); }
+
+.card-icon {
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tag-soft, var(--blue-soft));
+  color: var(--tag, var(--blue));
+  font-size: 1.2rem;
+}
+.card-tag { font-size: .75rem; font-weight: 600; color: var(--tag, var(--blue)); text-transform: uppercase; }
+.card-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card-body h2 { margin: 0; font-size: 1rem; line-height: 1.35; }
+.card-body small { color: var(--muted); }
+.card-body a { color: var(--blue); }
+
+.empty { color: var(--muted); }
+
+/* color per chip */
+.tag-roads     { --tag: #475569; --tag-soft: #e2e8f0; }
+.tag-health    { --tag: #16a34a; --tag-soft: #dcfce7; }
+.tag-heat      { --tag: #ea580c; --tag-soft: #ffedd5; }
+.tag-flood     { --tag: #2563eb; --tag-soft: #dbeafe; }
+.tag-power     { --tag: #ca8a04; --tag-soft: #fef9c3; }
+.tag-community { --tag: #9333ea; --tag-soft: #f3e8ff; }
+.tag-water     { --tag: #0891b2; --tag-soft: #cffafe; }
+.tag-crime      { --tag: #dc2626; --tag-soft: #fee2e2; }
+.tag-government { --tag: #0f766e; --tag-soft: #ccfbf1; }
+.tag-education  { --tag: #4f46e5; --tag-soft: #e0e7ff; }

@@ -11,7 +11,7 @@ block head %}
   <h1>Bacoor News Update</h1>
   <p>Stay updated with the latest news and updates from the city of Bacoor.</p>
 
-  {% set icons = {"Roads": "road", "Health": "heart-pulse", "Heat": "temperature-high", "Flood": "water", "Power": "bolt", "Community": "people-group", "Water": "droplet"} %}
+  {% set icons = {"Roads": "road", "Health": "heart-pulse", "Heat": "temperature-high", "Flood": "water", "Power": "bolt", "Community": "people-group", "Water": "droplet", "Crime": "shield-halved", "Government": "building-columns", "Education": "graduation-cap"} %}
 
   <!-- each news item -->
   <div class="browse-layout" id="listView">
@@ -57,17 +57,5 @@ block head %}
       {% endif %}
     </div>
   </div>
-
-  <!-- when clicked -->
-  <section id="detail" hidden>
-    <button id="backBtn"><i class="fa-solid fa-arrow-left"></i> Back</button>
-    <small id="dSource"></small>
-    <h2 id="dTitle"></h2>
-    <a id="dLink" target="_blank" rel="noopener">Read the full article</a>
-    <h3>Recently opened</h3>
-    <ul id="dHistory"></ul>
-  </section>
 </main>
-
-<script src="{{ url_for('static', filename='js/news.js') }}"></script>
 {% endblock %}
