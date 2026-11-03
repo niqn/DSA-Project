@@ -46,17 +46,32 @@ class newsList:
 
 
 # for the news page
+PH_TZ = timezone(timedelta(hours=8))  
 MAX_AGE_DAYS = 30
+
+BARANGAYS = [
+    "Alima", "Aniban", "Banalo", "Habay", "Kaingin Digman",
+    "Mambog", "Molino", "Niog", "P.F. Espiritu", "PF Espiritu", "Queens Row",
+]
+
+PLACES = BARANGAYS + ["Bacoor"]
+
 FEEDS = [
-    ('Bacoor brownout OR "power interruption" OR Meralco', "Power"),
-    ('Bacoor OR Cavite water interruption OR Maynilad', "Water"),
-    ('Cavite heat index OR "El Niño" OR mainit', "Heat"),
-    ('Bacoor OR Cavite dengue OR hospital OR health', "Health"),
-    ('Bacoor OR Cavite flood OR typhoon OR habagat', "Flood"),
-    ('Bacoor OR Cavite traffic OR road OR LRT OR Cavitex', "Roads"),
-    ('Bacoor OR Cavite class suspension OR school', "Education"),
-    ('Bacoor police OR arrested OR killed', "Crime"),
-    ('Bacoor mayor OR "city hall" OR council', "Government"),
+    ('Bacoor (brownout OR "power interruption" OR Meralco OR blackout)', "Power"),
+    ('Bacoor (water OR Maynilad OR "water interruption")', "Water"),
+    ('Bacoor (heat OR "El Niño" OR mainit OR temperature)', "Heat"),
+    ('Bacoor (dengue OR hospital OR health OR clinic OR DOH)', "Health"),
+    ('Bacoor (flood OR typhoon OR habagat OR baha OR bagyo)', "Flood"),
+    ('Bacoor (traffic OR road OR LRT OR Cavitex OR bridge)', "Roads"),
+    ('Bacoor (school OR students OR DepEd OR "class suspension")', "Education"),
+    ('Bacoor (police OR arrested OR killed OR crime)', "Crime"),
+    ('Bacoor (mayor OR "city hall" OR council OR ordinance OR LGU)', "Government"),
+    ('Bacoor (fire OR accident OR crash)', "Community"),
+    ('Bacoor (business OR investment OR project OR program)', "Community"),
+    ('Bacoor (sports OR basketball OR event OR festival)', "Community"),
+    ('"Bacoor City"', "Community"),
+    ('"Bacoor, Cavite"', "Community"),
+    ('Bacoor balita', "Community"),
     ('Bacoor', "Community"),
 ]
 
@@ -72,8 +87,19 @@ KEYWORDS = {
     "Government": ["mayor", "city hall", "council", "ordinance", "lgu", "barangay", "election", "budget"],
 }
 
-CATEGORIES = ["Flood", "Power", "Water", "Heat", "Health", "Roads", "Education", "Crime", "Government", "Community"]
+CATEGORIES = ["Flood", "Power", "Water", "Heat", "Health",
+              "Roads", "Education", "Crime", "Government", "Community"]
 
+for i in range(0, len(BARANGAYS), 6):
+    group = " OR ".join(f'"{b}"' for b in BARANGAYS[i:i + 6])
+    FEEDS.append((f"Bacoor ({group})", "Community"))
+
+def find_place(title):
+    text = title.lower()
+    for place in PLACES:
+        if re.search(r"\b" + re.escape(place.lower()) + r"\b", text):
+            return place
+    return None
 
 def get_tag(title):
     text = title.lower()
@@ -100,7 +126,7 @@ def get_news(category=None):
 
     items = [dict(i) for i in items[:20]]
     for i in items:
-        i["date"] = i["date"].strftime("%b %d, %Y")
+        i["date"] = i["date"].astimezone(PH_TZ).strftime("%b %d, %Y at %I:%M %p")
     return items
 
 
@@ -119,7 +145,13 @@ def fetch_feed(feed):
         title = (item.findtext("title") or "").strip()
         title = title.rsplit(" - ", 1)[0]
         pub = item.findtext("pubDate")
+
         if not title or not pub:
+            continue
+
+        desc = item.findtext("description") or ""
+        place = find_place(title) or find_place(desc)
+        if not place:
             continue
 
         date = parsedate_to_datetime(pub)
@@ -132,15 +164,17 @@ def fetch_feed(feed):
             "url": item.findtext("link", ""),
             "date": date,
             "tag": get_tag(title) or default_tag,
+            "place": place,
         })
     return stories
+
 
 def fetch_all_news():
     news_list = newsList()
     seen = set()
 
     with ThreadPoolExecutor(max_workers=10) as pool:
-        results = pool.map(fetch_feed, FEEDS)   
+        results = pool.map(fetch_feed, FEEDS)
 
     for stories in results:
         for story in stories:
@@ -150,6 +184,7 @@ def fetch_all_news():
             news_list.insertSort(story)
 
     return news_list.to_list()
+
 
 # load the news in the background when the server starts
 threading.Thread(target=get_news, daemon=True).start()
