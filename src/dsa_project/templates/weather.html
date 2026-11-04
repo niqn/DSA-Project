@@ -21,10 +21,9 @@ head %}
     <section class="panel" id="locationChoice">
       <h2>Choose location</h2>
       <select id="area">
-        <!-- <option value="bacoor">Bacoor</option>
-        <option value="dasma">Dasmariñas</option>
-        <option value="imus">Imus</option>
-        <option value="gentri">General Trias</option> -->
+        {% for loc in locations %}
+        <option value="{{ loc }}">{{ loc }}</option>
+        {% endfor %}  
       </select>
       <button id="btnLoc">Use my current location</button>
     </section>
@@ -84,12 +83,30 @@ head %}
   </div>
 
   <!-- bottom side -->
-  <section class="panel panel-wide" id="tipsPanel">
-    <h2>Summary?</h2>
-    <ul id="tips"></ul>
-    <p id="summary">----</p>
+  <section class="panel panel-wide" id="infoPanel">
+    <h2>Class suspension guide</h2>
+    <p id="suspendStatus">--</p>
+
+    <table class="rules">
+      <thead>
+        <tr><th>Heat index</th><th>What the DepEd guide says</th></tr>
+      </thead>
+      <tbody>
+        <tr data-min="0"><td>Below 27°C</td><td>Regular face-to-face classes</td></tr>
+        <tr data-min="27"><td>27 to 32°C</td><td>School heads may shorten onsite hours or shift to hybrid</td></tr>
+        <tr data-min="33"><td>33 to 41°C</td><td>Face-to-face classes suspended, learners do home-based tasks</td></tr>
+        <tr data-min="42"><td>42°C and above</td><td>Face-to-face and home-based activities both suspended</td></tr>
+      </tbody>
+    </table>
+
+    <p class="note">
+      Based on DepEd Memorandum No. 64, s. 2026 (El Niño guidelines). Our number is an
+      estimated outdoor heat index. DepEd's tool uses classroom readings at 8 AM, 12 NN
+      and 2 PM, and the final decision comes from the school head and your LGU.
+      Rules may change, so check official announcements.
+    </p>
   </section>
 </main>
 
-<script src="{{ url_for('static', filename='js/weather.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/weather.js') }}"></script>
 {% endblock %}

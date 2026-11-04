@@ -1,5 +1,5 @@
-from flask import render_template, request
-from .services import newsDSA
+from flask import jsonify, render_template, request
+from .services import newsDSA, weatherDSA
 
 from . import app
 
@@ -9,9 +9,15 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/weather')
+@app.route("/weather")
 def weather():
-    return render_template('weather.html')
+    return render_template("weather.html", locations=weatherDSA.LOCATIONS)
+
+
+@app.route("/weather/api/check")
+def weather_check():
+    area = request.args.get("area", "Bacoor")
+    return jsonify(weatherDSA.check_heat(area))
 
 
 @app.route('/news')
