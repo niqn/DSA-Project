@@ -2,7 +2,6 @@ from datetime import datetime, timedelta, timezone
 import requests
 # dsa application
 
-
 class ArrayList:
     def __init__(self):
         self.items = [None] * 4
@@ -74,11 +73,13 @@ COORDS = {
 }
 LOCATIONS = list(COORDS)
 
+HOT = 33      
+DANGER = 42
 
 def heat_index(temp_c, humidity):
     """Estimated heat index in °C (NOAA formula)."""
     t = temp_c * 9 / 5 + 32
-    if t < 80:                       # formula only works for hot weather
+    if t < 80:                      
         return round(temp_c, 1)
     hi = (-42.379 + 2.04901523 * t + 10.14333127 * humidity
           - 0.22475541 * t * humidity - 0.00683783 * t * t
@@ -113,33 +114,62 @@ def check_heat(area):
             "forecast_days": 1, "timezone": "Asia/Manila",
         }, timeout=10)
         h = r.json()["hourly"]
+
     except Exception:
         return {"error": "Could not load weather data"}
 
-    # ArrayList: 24 hourly heat index values
     readings = ArrayList()
     for temp, rh in zip(h["temperature_2m"], h["relative_humidity_2m"]):
         readings.add(heat_index(temp, rh))
 
-    # find the peak by walking the ArrayList
+    # peak
     peak_i = 0
     for i in range(readings.size()):
         if readings.get(i) > readings.get(peak_i):
             peak_i = i
 
-    # Queue: danger hours, first hour in is first hour out
-    alerts = Queue()
+    best_start, best_len = 0, 0
+    run_start, run_len = 0, 0
     for i in range(readings.size()):
-        if readings.get(i) >= 42:
-            alerts.enqueue(
-                f"{i:02d}:00 - {level(readings.get(i))} ({readings.get(i)}°C)")
+        if readings.get(i) >= HOT:
+            if run_len == 0:
+                run_start = i
+            run_len += 1
+            if run_len > best_len:
+                best_start, best_len = run_start, run_len
+        else:
+            run_len = 0
+
+    hot_period = None
+    if best_len > 0:
+        hot_period = f"{best_start:02d}:00 to {(best_start + best_len) % 24:02d}:00"
+
+    # queue
+    now = datetime.now(PH_TZ).hour
+    ahead = Queue()
+    for hour in range(now, readings.size()):
+        ahead.enqueue(hour)
 
     alert_list = []
-    while not alerts.is_empty():
-        alert_list.append(alerts.dequeue())
+    next_danger = None
+    while not ahead.is_empty():
+        hour = ahead.dequeue()
+        hi = readings.get(hour)
 
-    now = datetime.now(PH_TZ).hour
+        if hi >= HOT:
+            alert_list.append(f"{hour:02d}:00 - {level(hi)} ({hi}°C)")
+        if hi >= DANGER and next_danger is None:
+            next_danger = f"{hour:02d}:00"      
+
     feels = readings.get(now)
+
+    # check peak based on deped memo
+    checks = [readings.get(8), readings.get(12), readings.get(14)]
+    school_peak = checks[0]
+    for value in checks:
+        if value > school_peak:
+            school_peak = value
+
     return {
         "area": area,
         "temp": h["temperature_2m"][now],
@@ -149,6 +179,10 @@ def check_heat(area):
         "uv": h["uv_index"][now],
         "peak": readings.get(peak_i),
         "peak_time": f"{peak_i:02d}:00",
+        "hot_period": hot_period,
+        "next_danger": next_danger,
         "alerts": alert_list,
         "readings": readings.to_list(),
+        "checks": checks,
+        "school_peak": school_peak,
     }

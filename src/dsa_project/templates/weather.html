@@ -63,9 +63,9 @@ head %}
     </section>
 
     <section class="panel" id="streakPanel">
-      <h2>Heat streak (7 days)</h2>
-      <div id="streakDots" class="streak-dots"></div>
-      <p id="streakText">--</p>
+      <h2>Heat window today</h2>
+      <p id="hotPeriod">--</p>
+      <p id="nextDanger">--</p>
     </section>
   </div>
 
@@ -92,18 +92,19 @@ head %}
         <tr><th>Heat index</th><th>What the DepEd guide says</th></tr>
       </thead>
       <tbody>
-        <tr data-min="0"><td>Below 27°C</td><td>Regular face-to-face classes</td></tr>
-        <tr data-min="27"><td>27 to 32°C</td><td>School heads may shorten onsite hours or shift to hybrid</td></tr>
-        <tr data-min="33"><td>33 to 41°C</td><td>Face-to-face classes suspended, learners do home-based tasks</td></tr>
-        <tr data-min="42"><td>42°C and above</td><td>Face-to-face and home-based activities both suspended</td></tr>
+        <tr data-min="0"><td>Below 27°C</td><td>Regular face-to-face classes.</td></tr>
+        <tr data-min="27"><td>27 to 32°C</td><td>School heads may shorten onsite hours or shift to hybrid.</td></tr>
+        <tr data-min="33"><td>33 to 41°C</td><td>Face-to-face classes are suspended and learners do home-based tasks.</td></tr>
+        <tr data-min="42"><td>42°C and above</td><td>Face-to-face and home-based activities are both suspended.</td></tr>
       </tbody>
     </table>
 
     <p class="note">
-      Based on DepEd Memorandum No. 64, s. 2026 (El Niño guidelines). Our number is an
-      estimated outdoor heat index. DepEd's tool uses classroom readings at 8 AM, 12 NN
-      and 2 PM, and the final decision comes from the school head and your LGU.
-      Rules may change, so check official announcements.
+      Based on DepEd Memorandum No. 64, s. 2026 (El Niño guidelines). DepEd's tool reads
+      indoor classroom temperature and humidity at 8 AM, 12 NN and 2 PM, and school heads
+      coordinate with the LGU. Ours is an estimated outdoor heat index at those same times,
+      so treat it as a guide. The real decision is the announcement from your school,
+      LGU or DepEd.
     </p>
   </section>
 </main>

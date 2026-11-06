@@ -22,16 +22,24 @@ async function load() {
   $("peak").textContent = d.peak + "°C";
   $("peakTime").textContent = d.peak_time;
 
-  const rows = document.querySelectorAll("#infoPanel tbody tr");
+    const rows = document.querySelectorAll("#infoPanel tbody tr");
   let active = rows[0];
   rows.forEach(r => {
     r.classList.remove("now");
-    if (d.peak >= Number(r.dataset.min)) active = r;  
+    if (d.school_peak >= Number(r.dataset.min)) active = r;
   });
   active.classList.add("now");
 
   $("suspendStatus").textContent =
-    "Today's estimated peak is " + d.peak + "°C. DepEd guide: " + active.cells[1].textContent + ".";
+    "At 8 AM / 12 NN / 2 PM the estimate is " + d.checks.join("°C / ") + "°C. Highest: " + d.school_peak + "°C. " + active.cells[1].textContent;
+
+  $("hotPeriod").textContent = d.hot_period
+    ? "Hottest stretch: " + d.hot_period + " (33°C or higher)"
+    : "No hours at 33°C or higher today";
+
+  $("nextDanger").textContent = d.next_danger
+    ? "Danger level (42°C+) starts at " + d.next_danger
+    : "No danger-level hours ahead today";
 
   // queue
   $("alertQueue").innerHTML = d.alerts.length
