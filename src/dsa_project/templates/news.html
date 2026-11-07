@@ -10,15 +10,15 @@ block head %}
 
   <h1>Bacoor News Update</h1>
   <p>Stay updated with the latest news and updates from the city of Bacoor.</p>
+  <p class="clock"><i class="fa-regular fa-clock"></i> <span id="clock">--</span></p>
 
   {% set icons = {"Roads": "road", "Health": "heart-pulse", "Heat": "temperature-high", "Flood": "water", "Power": "bolt", "Community": "people-group", "Water": "droplet", "Crime": "shield-halved", "Government": "building-columns", "Education": "graduation-cap"} %}
 
-  <!-- each news item -->
   <div class="browse-layout" id="listView">
     <!-- category chips -->
     <aside class="choose-category">
       <a href="{{ url_for('news') }}" class="chip {{ 'active' if not category }}">
-        <i class="fa-solid fa-layer-group"></i> All<span class="chip-check" ><i class="fa-solid fa-check"></i></span>
+        <i class="fa-solid fa-layer-group"></i> All<span class="chip-check"><i class="fa-solid fa-check"></i></span>
       </a>
 
       {% for c in categories %}
@@ -30,33 +30,39 @@ block head %}
 
     <!-- news cards -->
     <div class="news-cards">
-        {% if news_items %}
+      {% if news_items %}
         {% for item in news_items %}
-      <article
-        class="news-card tag-{{ item.tag|lower }}"
-        data-title="{{ item.title }}"
-        data-source="{{ item.source }}"
-        data-date="{{ item.date }}"
-        data-url="{{ item.url }}"
-      >
-        <div class="card-icon">
-          <i class="fa-solid fa-{{ icons.get(item.tag, 'newspaper') }}"></i>
-        </div>
+        <a class="news-card tag-{{ item.tag|lower }}" href="{{ item.url }}" target="_blank" rel="noopener">
+          <div class="card-head">
+            <span class="card-icon"><i class="fa-solid fa-{{ icons.get(item.tag, 'newspaper') }}"></i></span>
+            <span class="card-tag">{{ item.tag }}</span>
 
-        <div class="card-body">
-          <span class="card-tag">{{ item.tag }}</span>
-          <small>{{ item.source }} · {{ item.date }}</small>
-          <small><i class="fa-solid fa-location-dot"></i> {{ item.place }}</small>
+            {% if item.is_new %}
+            <span class="badge-new">NEW</span>
+            {% endif %}
+          </div>
+
           <h2>{{ item.title }}</h2>
-          <a href="{{ item.url }}" target="_blank" rel="noopener">Read more</a>
-        </div>
-      </article>
-      {% endfor %} 
-      
+
+          <div class="card-meta">
+            <small>{{ item.source }} · {{ item.date }}</small>
+            {% if item.place != "Bacoor" %}
+            <small><i class="fa-solid fa-location-dot"></i> {{ item.place }}</small>
+            {% endif %}
+          </div>
+
+          <div class="card-foot">
+            <span class="read-more">Read more</span>
+            <span class="go"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+        {% endfor %}
       {% else %}
-      <p class="empty">No news right now. Try again in a few minutes.</p>
+        <p class="empty">No news right now. Try again in a few minutes.</p>
       {% endif %}
     </div>
   </div>
 </main>
+
+<script src="{{ url_for('static', filename='javascript/news.js') }}"></script>
 {% endblock %}

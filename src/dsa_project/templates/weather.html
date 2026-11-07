@@ -9,30 +9,48 @@ head %}
 <main class="weather-grid">
   <!-- left side -->
   <div class="col col-left">
-    <section class="panel" id="greetingCard">
-      <h2>
-        <span id="greeting">Hello</span>. Today is <span id="today">--</span>,
-        <span id="clock">--</span>
-      </h2>
-      <p id="temp">--°C</p>
-      <p id="level">--</p>
-    </section>
-
+    <!-- choose location -->
     <section class="panel" id="locationChoice">
       <h2>Choose location</h2>
       <select id="area">
         {% for loc in locations %}
         <option value="{{ loc }}">{{ loc }}</option>
-        {% endfor %}  
+        {% endfor %}
       </select>
       <button id="btnLoc">Use my current location</button>
+    </section>
+
+    <!-- if classes are suspended -->
+    <section class="panel" id="classPanel">
+      <h2><i class="fa-solid fa-school"></i> Classes</h2>
+      <p id="classStatus">--</p>
+      <small id="classNote">--</small>
+    </section>
+
+    <!-- alert queue -->
+    <section class="panel" id="queuePanel">
+      <h2>Alert queue</h2>
+      <ul id="alertQueue"></ul>
     </section>
   </div>
 
   <!-- middle side -->
   <div class="col col-middle">
-    <section class="panel" id="statsPanel">
-      <h2>Current conditions</h2>
+    <section class="panel" id="greetingCard">
+      <h3 id="areaName">Bacoor</h3>
+      <h2>
+        <span id="greeting">Hello</span>. Today is <span id="today">--</span>,
+        <span id="clock">--</span>
+      </h2>
+
+      <div class="now-row">
+        <i id="wxIcon" class="fa-solid fa-sun"></i>
+        <div>
+          <p id="temp">--°C</p>
+          <p id="level">--</p>
+        </div>
+      </div>
+
       <div class="stat-grid">
         <div class="stat">
           <span class="stat-label"
@@ -69,43 +87,10 @@ head %}
     </section>
   </div>
 
-  <!-- right side -->
-  <div class="col col-right">
-    <section class="panel" id="queuePanel">
-      <h2>Alert queue</h2>
-      <ul id="alertQueue"></ul>
-    </section>
-
-    <section class="panel" id="hourlyPanel">
-      <h2>Hourly heat index</h2>
-      <div id="readings"></div>
-    </section>
-  </div>
-
   <!-- bottom side -->
   <section class="panel panel-wide" id="infoPanel">
-    <h2>Class suspension guide</h2>
-    <p id="suspendStatus">--</p>
-
-    <table class="rules">
-      <thead>
-        <tr><th>Heat index</th><th>What the DepEd guide says</th></tr>
-      </thead>
-      <tbody>
-        <tr data-min="0"><td>Below 27°C</td><td>Regular face-to-face classes.</td></tr>
-        <tr data-min="27"><td>27 to 32°C</td><td>School heads may shorten onsite hours or shift to hybrid.</td></tr>
-        <tr data-min="33"><td>33 to 41°C</td><td>Face-to-face classes are suspended and learners do home-based tasks.</td></tr>
-        <tr data-min="42"><td>42°C and above</td><td>Face-to-face and home-based activities are both suspended.</td></tr>
-      </tbody>
-    </table>
-
-    <p class="note">
-      Based on DepEd Memorandum No. 64, s. 2026 (El Niño guidelines). DepEd's tool reads
-      indoor classroom temperature and humidity at 8 AM, 12 NN and 2 PM, and school heads
-      coordinate with the LGU. Ours is an estimated outdoor heat index at those same times,
-      so treat it as a guide. The real decision is the announcement from your school,
-      LGU or DepEd.
-    </p>
+    <h2>Hourly heat index</h2>
+    <div id="readings"></div>
   </section>
 </main>
 

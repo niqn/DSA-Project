@@ -124,8 +124,11 @@ def get_news(category=None):
     if category:
         items = [i for i in items if i["tag"] == category]
 
-    items = [dict(i) for i in items[:20]]
+    items = [dict(i) for i in items[:20]] 
+    
+    now_dt = datetime.now(timezone.utc)
     for i in items:
+        i["is_new"] = now_dt - i["date"] < timedelta(hours=24)
         i["date"] = i["date"].astimezone(PH_TZ).strftime("%b %d, %Y at %I:%M %p")
     return items
 

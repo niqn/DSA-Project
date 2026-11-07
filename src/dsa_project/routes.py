@@ -1,5 +1,5 @@
-from flask import jsonify, render_template, request
-from .services import newsDSA, weatherDSA
+from flask import jsonify, redirect, render_template, request, session, url_for
+from .services import newsDSA, weatherDSA, emergencyDSA
 
 from . import app
 
@@ -8,7 +8,7 @@ from . import app
 def home():
     return render_template('home.html')
 
-
+# community hub tools
 @app.route("/weather")
 def weather():
     return render_template("weather.html", locations=weatherDSA.LOCATIONS)
@@ -25,6 +25,33 @@ def news():
     category = request.args.get("category")
     return render_template('news.html', news_items=newsDSA.get_news(category), categories=newsDSA.CATEGORIES, category=category)
 
+
+@app.route('/emergency')
+def emergency():
+    city = request.args.get("city", "Bacoor")
+    barangay = request.args.get("barangay", "")
+    category = request.args.get("category", "")
+    q = request.args.get("q", "")
+
+    session["recent"] = emergencyDSA.remember_search(session.get("recent", []), q)
+
+    return render_template(
+        "emergency.html",
+        results=emergencyDSA.search(city, barangay, category, q),
+        cities=emergencyDSA.CITIES, barangays=emergencyDSA.BARANGAYS,
+        categories=emergencyDSA.CATEGORIES,
+        recent=session["recent"],
+        city=city, barangay=barangay, category=category, q=q,
+    )
+
+
+@app.route('/emergency/undo')
+def emergency_undo():
+    # stack: pop the newest search
+    session["recent"] = emergencyDSA.forget_last(session.get("recent", []))
+    return redirect(url_for('emergency'))
+
+# quick? tools
 @app.route('/generators')#qr, password, etc.
 def gen():
     return render_template('generators.html')
