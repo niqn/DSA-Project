@@ -1,0 +1,58 @@
+.simon {
+  max-width: 420px;
+  margin: 24px auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--card);
+  text-align: center;
+}
+
+.simon-hud {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: var(--green-deep);
+}
+
+.simon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.simon-btn {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 14px;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.simon-btn:hover { background: #d3efe0; }
+
+.simon-btn:active,
+.simon-btn.pressed,
+.simon-btn.flash {
+  background: var(--green);
+  color: #fff;
+}
+
+.simon-start {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.simon-start:hover { background: var(--green-dark); }
