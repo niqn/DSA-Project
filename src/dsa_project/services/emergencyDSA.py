@@ -93,10 +93,68 @@ HALLS = {
     "Sinbanali (Sineguelasan, Banalo, Alima)": ["431-2569"],
     "Zapote I (I, II)": ["519-3452"],
 }
+
 for b, nums in HALLS.items():
     HOTLINES.append(record("Barangay Hall: " + b, "General", "Bacoor", b,
                            ["(046) " + n for n in nums], HALL_SRC, "Barangay hall, for local help"))
 
+# dsa application
+# call first
+class QueueNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class Queue:
+    def __init__(self):
+        self.front = None
+        self.rear = None
+
+    def is_empty(self):
+        return self.front is None
+
+    def enqueue(self, value):
+        new_node = QueueNode(value)
+        if self.rear:
+            self.rear.next = new_node
+        else:
+            self.front = new_node
+        self.rear = new_node
+
+    def dequeue(self):
+        if not self.front:
+            return None
+
+        value = self.front.value
+        self.front = self.front.next
+
+        if not self.front:
+            self.rear = None
+        return value
+
+def call_order(city, barangay, category):
+    if not category:
+        return []
+
+    tiers = [
+        ("In your barangay", lambda r: barangay != "" and r["barangay"] == barangay and r["category"] == category),
+        ("Citywide", lambda r: r["barangay"] == "" and r["city"] == city and r["category"] == category),
+        ("City emergency line", lambda r: r["barangay"] == "" and r["city"] == city and r["category"] == "General"),
+        ("National", lambda r: r["city"] == "All"),
+    ]
+
+    queue = Queue()
+    for tier_name, condition in tiers:
+        for r in HOTLINES:
+            if condition(r):
+                queue.enqueue({"tier_name": tier_name, "record": r})
+
+    steps = []
+    while not queue.is_empty():
+        steps.append(queue.dequeue())
+    return steps
+
+# search
 class StackNode:
     def __init__(self, value):
         self.value = value

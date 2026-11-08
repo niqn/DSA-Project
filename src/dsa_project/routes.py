@@ -32,8 +32,10 @@ def emergency():
     barangay = request.args.get("barangay", "")
     category = request.args.get("category", "")
     q = request.args.get("q", "")
+    order = emergencyDSA.call_order(city, barangay, category)
 
     session["recent"] = emergencyDSA.remember_search(session.get("recent", []), q)
+    
 
     return render_template(
         "emergency.html",
@@ -42,6 +44,7 @@ def emergency():
         categories=emergencyDSA.CATEGORIES,
         recent=session["recent"],
         city=city, barangay=barangay, category=category, q=q,
+        order=order,
     )
 
 

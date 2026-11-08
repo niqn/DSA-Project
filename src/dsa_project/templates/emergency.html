@@ -8,8 +8,7 @@ block head %}
 
 <main class="page">
   <a href="{{ url_for('home') }}" class="back-link">
-    <i class="fa-solid fa-arrow-left"></i> Back to home</a
-  >
+    <i class="fa-solid fa-arrow-left"></i> Back to home</a>
 
   <h1>Emergency Hotline Directory</h1>
   <p>Find the right number for your location and type of emergency.</p>
@@ -18,19 +17,15 @@ block head %}
   </p>
 
   <div class="banner-911">
-    <i class="fa-solid fa-triangle-exclamation"></i>Life-threatening emergency?
-    Call <a href="tel:911">911</a> first.
+    <i class="fa-solid fa-triangle-exclamation"></i>Life-threatening emergency? Call <a href="tel:911">911</a> first.
   </div>
 
-  {% set icons = {"Police": "shield-halved", "Fire": "fire-flame-curved",
-  "Medical": "truck-medical", "Disaster": "house-flood-water", "General":
-  "phone-volume"} %}
+  {% set icons = {"Police": "shield-halved", "Fire": "fire-flame-curved", "Medical": "truck-medical", "Disaster": "house-flood-water", "General": "phone-volume"} %}
 
   <form method="get" action="{{ url_for('emergency') }}" class="emergency-form">
     <input type="hidden" name="category" value="{{ category }}" />
     <input type="hidden" id="city" name="city" value="{{ city }}" />
     <!-- search bar -->
-        <!-- search bar -->
     <div class="search-bar">
       <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
       <input type="text" name="q" value="{{ q }}" placeholder="Search by agency, like PNP, BFP, hospital" />
@@ -55,10 +50,7 @@ block head %}
           <ul>
             {% for s in recent %}
             <li>
-              <a
-                href="{{ url_for('emergency', city=city, barangay=barangay, category=category, q=s) }}"
-                >{{ s }}</a
-              >
+              <a href="{{ url_for('emergency', city=city, barangay=barangay, category=category, q=s) }}">{{ s }}</a>
             </li>
             {% endfor %}
           </ul>
@@ -74,46 +66,56 @@ block head %}
         <div class="choose-category">
           <a
             href="{{ url_for('emergency', city=city, barangay=barangay, q=q) }}"
-            class="chip {{ 'active' if not category }}"
-            >All</a
-          >
+            class="chip {{ 'active' if not category }}">All</a>
+
           {% for c in categories %}
           <a
             href="{{ url_for('emergency', city=city, barangay=barangay, q=q, category=c) }}"
-            class="chip {{ 'active' if c == category }}"
-          >
+            class="chip {{ 'active' if c == category }}">
             <i class="fa-solid fa-{{ icons.get(c) }}"></i> {{ c }}
           </a>
           {% endfor %}
         </div>
+
+        {% if order %}
+        <section class="panel call-order">
+          <h2>Call in this order</h2>
+          <small>If nobody answers, try the next one.</small>
+          <ol>
+            {% for s in order %}
+            <li>
+              <strong>{{ s.record.name }}</strong> <small>{{ s.label }}</small>
+              <a class="call" href="tel:{{ s.record.numbers[0]|replace('-', '')|replace(' ', '')|replace('(', '')|replace(')', '') }}">
+                <i class="fa-solid fa-phone"></i> {{ s.record.numbers[0] }}
+              </a>
+              {% if not s.record.verified %}<small class="unverified">not yet verified</small>{% endif %}
+            </li>
+            {% endfor %}
+          </ol>
+        </section>
+        {% endif %}
 
         <div class="hotline-cards">
           {% if results %} {% for r in results %}
           <article class="hotline-card cat-{{ r.category|lower }}">
             <div class="card-head">
               <span class="card-icon"
-                ><i class="fa-solid fa-{{ icons.get(r.category, 'phone') }}"></i
-              ></span>
-              <span class="card-tag">{{ r.category }}</span>
+                ><i class="fa-solid fa-{{ icons.get(r.category, 'phone') }}"></i></span><span class="card-tag">{{ r.category }}</span>
             </div>
             <h3>{{ r.name }}</h3>
             <small
-              >{{ r.city }}{% if r.barangay %}, {{ r.barangay }}{% endif
-              %}</small
-            >
+              >{{ r.city }}{% if r.barangay %}, {{ r.barangay }}
+              {% endif%}
+            </small>
 
             {% for n in r.numbers %}
-            <a
-              class="call"
-              href="tel:{{ n|replace('-', '')|replace(' ', '')|replace('(', '')|replace(')', '') }}"
-            >
+            <a class="call" href="tel:{{ n|replace('-', '')|replace(' ', '')|replace('(', '')|replace(')', '') }}">
               <i class="fa-solid fa-phone"></i> {{ n }}{% if not loop.first %}
               <em>(also listed)</em>{% endif %}
             </a>
             {% endfor %} {% if r.note %}<small>{{ r.note }}</small>{% endif %}
             <small class="verified {{ '' if r.verified else 'unverified' }}">
-              {% if r.verified %}Checked {{ r.verified }}{% else %}Not yet
-              verified, call to confirm{% endif %} · {{ r.source }}
+              {% if r.verified %}Checked {{ r.verified }}{% else %}Not yet verified, call to confirm{% endif %} · {{ r.source }}
             </small>
           </article>
           {% endfor %} {% else %}

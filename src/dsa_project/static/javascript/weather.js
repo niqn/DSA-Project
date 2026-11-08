@@ -23,6 +23,10 @@ async function load() {
   $("peakTime").textContent = d.peak_time;
 
   $("areaName").textContent = d.area;
+
+    $("dsaNote").textContent =
+    `ArrayList holds ${d.array_size} readings, capacity ${d.array_capacity} (it doubled 4 → 8 → 16 → 32). ` +
+    `Queue served ${d.queue_count} hot hours in time order.`;
   
   // check classes
   const sp = d.school_peak;

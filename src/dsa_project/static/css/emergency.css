@@ -1,0 +1,270 @@
+.page {
+  --red: #dc2626;
+  --red-dark: #991b1b;
+  --red-soft: #fee2e2;
+  --blue: #2563eb;
+  --text: #1e293b;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --bg: #f8fafc;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  color: var(--text);
+}
+
+.page h1 { margin: 8px 0 4px; color: var(--red-dark); }
+.page h2 { font-size: 18px; margin-bottom: 10px; }
+.page h3 { font-size: 16px; }
+
+.back-link { color: var(--blue); text-decoration: none; }
+.clock { color: var(--muted); margin: 0; }
+.clock i { color: var(--red); }
+
+/* 911 banner */
+.banner-911 {
+  margin: 16px 0;
+  padding: 12px 16px;
+  background: var(--red-soft);
+  border: 1px solid var(--red);
+  border-left: 4px solid var(--red);
+  border-radius: 8px;
+  color: var(--red-dark);
+  font-weight: 600;
+}
+
+.banner-911 i { margin-right: 8px; }
+.banner-911 a { color: var(--red-dark); font-weight: 800; }
+
+/* search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  height: 42px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.search-bar:focus-within { border-color: var(--red); }
+
+/* full width, side to side */
+.emergency-form .search-bar { width: 100%; max-width: none; margin: 0; }
+
+.search-bar button {
+  order: -1;
+  flex: none;
+  width: 40px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 16px 0 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.search-bar :focus-visible { outline: none; }
+
+/* layout: location panel on the left, cards flow beside it then continue underneath */
+.emergency-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* let chips, call-order and the cards sit directly in the grid */
+.emergency-layout .results,
+.emergency-layout .hotline-cards { display: contents; }
+
+/* panel takes the first column and spans the first 3 rows */
+#locationChoice { grid-column: 1; grid-row: 1 / span 3; align-self: start; }
+
+.choose-category,
+.call-order,
+.empty { grid-column: 2 / -1; }
+
+.panel {
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+#locationChoice { display: flex; flex-direction: column; gap: 8px; }
+
+#locationChoice label { font-size: 14px; font-weight: 600; }
+
+#locationChoice select {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--text);
+}
+
+#locationChoice button {
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+#locationChoice button:hover { border-color: var(--red); }
+
+#locationChoice button[type="submit"] {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+#locationChoice button[type="submit"]:hover { background: var(--red-dark); }
+
+#locStatus { color: var(--muted); }
+
+/* recent searches */
+#recentSearches { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+#recentSearches h3 { margin-bottom: 6px; font-size: 14px; }
+#recentSearches ul { margin: 0 0 8px; padding-left: 18px; }
+#recentSearches a { color: var(--blue); text-decoration: none; }
+#recentSearches small { color: var(--muted); }
+.undo { font-size: 13px; color: var(--red); }
+
+/* category chips */
+.choose-category { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.chip:hover { border-color: var(--red); }
+.chip.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* call in this order */
+.call-order { border-left: 4px solid var(--red); }
+.call-order small { color: var(--muted); }
+.call-order ol { margin: 10px 0 0; padding-left: 20px; }
+.call-order li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.call-order li:last-child { border-bottom: none; }
+.call-order li small { display: block; }
+
+/* phone links */
+.call {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--red-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.call:hover { text-decoration: underline; }
+.call em { color: var(--muted); font-weight: 400; font-size: 12px; }
+
+/* hotline cards: they sit directly in the .emergency-layout grid (see above) */
+
+.hotline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--tag, var(--red));
+  border-radius: 12px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.hotline-card:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.hotline-card small { color: var(--muted); }
+
+.card-head { display: flex; align-items: center; gap: 10px; }
+
+.card-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tag-soft, var(--red-soft));
+  color: var(--tag, var(--red));
+  font-size: 0.9rem;
+}
+
+.card-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--tag, var(--red));
+}
+
+/* verified / not verified */
+.verified {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.unverified { color: #b45309 !important; }
+
+/* color per category */
+.cat-police   { --tag: #2563eb; --tag-soft: #dbeafe; }
+.cat-fire     { --tag: #ea580c; --tag-soft: #ffedd5; }
+.cat-medical  { --tag: #16a34a; --tag-soft: #dcfce7; }
+.cat-disaster { --tag: #0891b2; --tag-soft: #cffafe; }
+.cat-general  { --tag: #475569; --tag-soft: #e2e8f0; }
+
+.empty { padding: 24px 0; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hotline-card:hover { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .emergency-layout { grid-template-columns: minmax(0, 1fr); }
+  #locationChoice { grid-row: auto; }
+  .choose-category,
+  .call-order,
+  .empty { grid-column: 1; }
+}

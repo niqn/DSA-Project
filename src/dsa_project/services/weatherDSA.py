@@ -185,4 +185,7 @@ def check_heat(area):
         "readings": readings.to_list(),
         "checks": checks,
         "school_peak": school_peak,
+        "array_size": readings.size(),
+        "array_capacity": len(readings.items),
+        "queue_count": len(alert_list),
     }
