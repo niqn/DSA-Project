@@ -75,3 +75,7 @@ def text():
 def game():
     return render_template('game.html')
 
+@app.route('/games/simon')
+def simon():
+    return render_template('simon.html')
+
