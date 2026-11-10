@@ -97,27 +97,23 @@ def flashcards_delete():
 
 
 
-@app.route('/generators')#qr, password, etc.
-def gen():
-    return render_template('generators.html')
+@app.route('/algorithms')
+def algorithms():
+    return render_template('algorithms.html')
 
-@app.route('/random')#rng, coin flip, dice, wheel, etc.
-def random():
-    return render_template('random.html')
+@app.route('/binary-tree')
+def binary_tree():
+    return render_template('bn_tree.html')
 
-@app.route('/time')#timer, stopwatch
-def time():
-    return render_template('time.html')
+@app.route('/graph')
+def graph_maker():
+    return render_template('graph.html')
 
-@app.route('/text')#word counter, unique words, alphabetical sorter, etc.
-def text():
-    return render_template('text.html')
+@app.route('/maze')
+def maze_maker():
+    return render_template('maze.html')
 
-@app.route('/games')#idk
-def game():
-    return render_template('game.html')
-
-@app.route('/games/simon')
+@app.route('/simon')
 def simon():
     return render_template('simon.html')
 
