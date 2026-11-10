@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Study Session{% endblock %} {% block
+head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/study.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="study">
+  <h1>Study Session</h1>
+  <p>Add your subjects. They are studied in the order you add them.</p>
+
+  <form method="post" action="{{ url_for('study_add') }}" class="study-form">
+    <input type="text" name="subject" placeholder="Subject" maxlength="40" required />
+    <input type="number" name="minutes" value="25" min="1" max="180" />
+    <button type="submit">Add</button>
+  </form>
+
+    {% if now %}
+  <div class="study-layout">
+    <!-- left: the one going on now -->
+    <div class="study-now" id="nowCard" data-minutes="{{ now.minutes }}">
+      <small>Now studying</small>
+      <h2>{{ now.subject }}</h2>
+      <p id="countdown">{{ now.minutes }}:00</p>
+      <div class="study-buttons">
+        <button type="button" id="startBtn">Start</button>
+        <form method="post" action="{{ url_for('study_next') }}">
+          <button type="submit">Done / Next</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- right: the rest of the queue -->
+    <aside class="study-next">
+      <h3>Up next ({{ total }} min total)</h3>
+      {% if upcoming %}
+      <ol class="study-list">
+        {% for s in upcoming %}
+        <li>
+          <strong>{{ s.subject }}</strong>
+          <span>{{ s.minutes }} min</span>
+          <small>starts in {{ s.starts_in }} min</small>
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p class="muted">Nothing else in line.</p>
+      {% endif %}
+    </aside>
+  </div>
+  {% else %}
+  <p class="muted">The queue is empty. Add a subject to start.</p>
+  {% endif %}
+</section>
+
+<script src="{{ url_for('static', filename='javascript/study.js') }}"></script>
+{% endblock %}

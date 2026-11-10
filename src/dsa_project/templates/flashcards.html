@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Flashcards{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flashcards.css') }}" />
+{% endblock %}
+{% block content %}
+<section class="flash">
+  <h1>Flashcards</h1>
+  <p>Make your own cards. Click a card to flip it.</p>
+
+  <form method="post" action="{{ url_for('flashcards_add') }}" class="flash-form">
+    <input type="text" name="front" placeholder="Front (question)" maxlength="60" required />
+    <input type="text" name="back" placeholder="Back (answer)" maxlength="60" required />
+    <select name="where">
+      <option value="end">Add to the end</option>
+      <option value="after">Insert after this card</option>
+    </select>
+    <button type="submit">Add</button>
+  </form>
+
+  {% if card %}
+  <p class="muted">Card {{ i + 1 }} of {{ total }}</p>
+  <div class="flash-card" id="card">
+    <p id="face">{{ card.front }}</p>
+    <small>Click to flip</small>
+  </div>
+  <div class="flash-nav">
+    <a href="{{ url_for('flashcards_move', direction='prev') }}">← Previous</a>
+    <form method="post" action="{{ url_for('flashcards_delete') }}">
+      <button type="submit" class="del">Delete</button>
+    </form>
+    <a href="{{ url_for('flashcards_move', direction='next') }}">Next →</a>
+  </div>
+  <script>
+    const FRONT = {{ card.front|tojson }}, BACK = {{ card.back|tojson }};
+  </script>
+  {% else %}
+  <p class="muted">No cards yet. Add your first one above.</p>
+  {% endif %}
+</section>
+<script src="{{ url_for('static', filename='javascript/flashcards.js') }}"></script>
+{% endblock %}

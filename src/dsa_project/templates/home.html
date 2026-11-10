@@ -13,10 +13,22 @@
     <p>Check the current weather and forecasts.</p>
   </a>
 
-   <a href="{{ url_for('emergency') }}" class="card card-big">
+  <a href="{{ url_for('simon') }}" class="card card-big">
     <i class="fa-solid fa-phone"></i>
-    <h2>Emergency Services</h2>
-    <p>Find contact information for emergency services.</p>
+    <h2>Simon Game</h2>
+    <p>Play the classic Simon memory game.</p>
+  </a>
+
+  <a href="{{ url_for('study') }}" class="card card-big">
+    <i class="fa-solid fa-book"></i>
+    <h2>Study Session</h2>
+    <p>Manage your study sessions and tasks.</p>
+  </a>
+
+  <a href="{{ url_for('flashcards') }}" class="card card-big">
+    <i class="fa-solid fa-book"></i>
+    <h2>Study Session</h2>
+    <p>Manage your study sessions and tasks.</p>
   </a>
 </section>
 {% endblock %}
