@@ -1,0 +1,188 @@
+
+{% extends "base.html" %}
+
+{% block title %}Binary Tree Visualizer{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bn_tree.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="container">
+
+    <header class="page-header">
+        <div>
+            <h1>Binary Tree Visualizer</h1>
+            <p>Build and explore a binary tree interactively.</p>
+        </div>
+
+        <button id="reset-btn" class="secondary-btn">
+            Reset Tree
+        </button>
+    </header>
+
+
+    <!-- TREE VISUALIZATION -->
+    <section class="panel tree-panel">
+
+        <div class="section-header">
+            <h2>Visualization</h2>
+            <span id="node-count">0 Nodes</span>
+        </div>
+
+        <div class="tree-container">
+            <svg id="tree-svg"></svg>
+        </div>
+
+        <div class="tree-legend">
+            <span>
+                <i class="legend-dot normal"></i>
+                Node
+            </span>
+
+            <span>
+                <i class="legend-dot selected"></i>
+                Selected
+            </span>
+
+            <span>
+                <i class="legend-dot active"></i>
+                Traversal
+            </span>
+        </div>
+
+    </section>
+
+
+    <!-- NODE CONTROLS -->
+    <section class="controls-grid">
+
+        <!-- CREATE ROOT -->
+        <div class="panel control-panel">
+
+            <h2>Create Root</h2>
+
+            <p class="description">
+                Create the starting node of your tree.
+            </p>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="root-value"
+                    placeholder="Enter root value"
+                    maxlength="30"
+                >
+
+                <button id="create-root-btn" class="primary-btn">
+                    Create
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- ADD NODE -->
+        <div class="panel control-panel">
+
+            <h2>Add Child</h2>
+
+            <p class="description">
+                Select a parent node in the visualization first.
+            </p>
+
+            <div class="selected-info">
+                Selected:
+                <strong id="selected-node">None</strong>
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="node-value"
+                    placeholder="Enter node value"
+                    maxlength="30"
+                >
+
+                <select id="node-side">
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                </select>
+
+                <button id="add-node-btn" class="primary-btn">
+                    Add
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- DELETE NODE -->
+        <div class="panel control-panel">
+
+            <h2>Delete Node</h2>
+
+            <p class="description">
+                Deletes the selected node and all its descendants.
+            </p>
+
+            <button id="delete-node-btn" class="danger-btn" disabled>
+                Delete Selected Node
+            </button>
+
+        </div>
+
+
+        <!-- TRAVERSAL -->
+        <div class="panel control-panel">
+
+            <h2>Traversal</h2>
+
+            <p class="description">
+                Watch the algorithm visit each node.
+            </p>
+
+            <div class="input-group">
+
+                <select id="traversal-method">
+                    <option value="inorder">Inorder</option>
+                    <option value="preorder">Preorder</option>
+                    <option value="postorder">Postorder</option>
+                    <option value="levelorder">Level Order</option>
+                </select>
+
+                <button id="traverse-btn" class="primary-btn">
+                    Visualize
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TRAVERSAL OUTPUT -->
+    <section class="panel result-panel">
+
+        <div class="section-header">
+            <h2>Traversal Result</h2>
+            <span id="traversal-status">Ready</span>
+        </div>
+
+        <div id="traversal-result" class="traversal-result">
+            No traversal performed yet.
+        </div>
+
+    </section>
+
+
+    <!-- MESSAGES -->
+    <div id="message" class="message" aria-live="polite"></div>
+
+</main>
+
+<script src="{{ url_for('static', filename='javascript/bn_tree.js') }}"></script>
+
+{% endblock %}

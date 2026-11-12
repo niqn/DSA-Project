@@ -1,0 +1,361 @@
+
+/* Binary tree page — aligned with news.css */
+
+.page {
+    --blue: #2563eb;
+    --blue-dark: #1e40af;
+    --text: #1e293b;
+    --muted: #64748b;
+    --line: #e2e8f0;
+
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+    color: var(--text);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 8px 0 22px;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    color: var(--blue-dark);
+}
+
+.page-header p,
+.description {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Panels */
+.panel {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(30, 41, 59, 0.05);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.section-header h2,
+.control-panel h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--blue-dark);
+}
+
+.section-header span {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+/* Tree */
+.tree-panel {
+    margin-bottom: 20px;
+}
+
+.tree-container {
+    width: 100%;
+    min-height: 350px;
+    max-height: 650px;
+    overflow: auto;
+    background: #f8fafc;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+#tree-svg {
+    display: block;
+    width: 100%;
+    min-width: 500px;
+    min-height: 350px;
+}
+
+.edge {
+    stroke: #94a3b8;
+    stroke-width: 2;
+}
+
+.node-circle {
+    fill: var(--blue);
+    stroke: #93c5fd;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+.node-circle:hover {
+    fill: var(--blue-dark);
+}
+
+.node-circle.selected {
+    fill: #f59e0b;
+    stroke: #fcd34d;
+    stroke-width: 3;
+}
+
+.node-circle.active {
+    fill: #16a34a;
+    stroke: #86efac;
+    stroke-width: 3;
+}
+
+.node-text {
+    fill: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.node-id {
+    fill: var(--muted);
+    font-size: 10px;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.empty-text {
+    fill: var(--muted);
+    font-size: 16px;
+    text-anchor: middle;
+}
+
+/* Tree legend */
+.tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 16px;
+}
+
+.tree-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.normal {
+    background: var(--blue);
+}
+
+.legend-dot.selected {
+    background: #f59e0b;
+}
+
+.legend-dot.active {
+    background: #16a34a;
+}
+
+/* Controls */
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.control-panel h2 {
+    margin-bottom: 8px;
+}
+
+.control-panel .description {
+    min-height: 40px;
+    line-height: 1.5;
+    margin: 0 0 14px;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Inputs */
+.page input,
+.page select {
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--text);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.page input {
+    flex: 1;
+}
+
+.page select {
+    cursor: pointer;
+}
+
+.page input:focus,
+.page select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Buttons */
+.page button {
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.page button:hover:not(:disabled) {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.page button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.page button.primary-btn {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+}
+
+.page button.primary-btn:hover:not(:disabled) {
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: #fff;
+}
+
+.page button.secondary-btn {
+    background: #fff;
+}
+
+.page button.danger-btn {
+    width: 100%;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.page button.danger-btn:hover:not(:disabled) {
+    background: #fef2f2;
+    border-color: #dc2626;
+}
+
+/* Selected node information */
+.selected-info {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.selected-info strong {
+    color: var(--blue-dark);
+}
+
+/* Traversal results */
+.result-panel {
+    margin-bottom: 20px;
+}
+
+.traversal-result {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 45px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.result-node {
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f8fafc;
+    color: var(--text);
+    font-weight: bold;
+}
+
+.result-node.current {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
+}
+
+/* Messages */
+.message {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 10;
+    padding: 12px 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 8px 24px rgba(30, 41, 59, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .page {
+        padding: 12px;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .control-panel .description {
+        min-height: 0;
+    }
+}

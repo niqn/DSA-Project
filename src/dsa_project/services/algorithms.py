@@ -7,45 +7,142 @@ import math
 
 def bubble_sort(arr: list[int]) -> list[dict]:
     steps = []
+
     for i in range(len(arr)):
         swapped = False
-        for j in range(len(arr) - 1 - i):
-            steps.append({'type': 'compare', 'indices': [j, j+1], 'array': arr.copy()})
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-                steps.append({'type': 'swap', 'indices': [j, j+1], 'array': arr.copy()})
-                swapped = True
 
+        for j in range(len(arr) - 1 - i):
+            steps.append({'type': 'compare', 'indices': [j, j + 1], 'array': arr.copy()})
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                steps.append({'type': 'swap', 'indices': [j, j + 1], 'array': arr.copy()})
+                swapped = True
 
         if not swapped:
             break
-
     steps.append({'type': 'sorted', 'indices': list(range(len(arr))), 'array': arr.copy()})
+
     return steps
+
 
 def insertion_sort(arr: list[int]) -> list[dict]:
     steps = []
-    for i in range(1,len(arr)):
+
+    for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
         while j >= 0:
             steps.append({'type': 'compare', 'indices': [j, i], 'array': arr.copy()})
+
             if arr[j] > key:
-                arr[j+1] = arr[j]
-                steps.append({'type': 'shift', 'indices': [j, j+1], 'array': arr.copy()})
+                arr[j + 1] = arr[j]
+                steps.append({'type': 'shift', 'indices': [j, j + 1], 'array': arr.copy()})
                 j -= 1
+            else:
+                break
 
         arr[j + 1] = key
+        steps.append({ 'type': 'insert', 'indices': [j + 1], 'array': arr.copy()})
 
     steps.append({'type': 'sorted', 'indices': list(range(len(arr))), 'array': arr.copy()})
+
     return steps
 
 #sorting algorithms
-def linear_search(*input):
-    pass
+def linear_search(arr: list[int], target: int) -> list[dict]:
+    steps = []
 
-def binary_search(*input):
-    pass
+    for i in range(len(arr)):
+        steps.append({
+            "type": "compare",
+            "indices": [i],
+            "array": arr.copy(),
+            "target": target
+        })
+
+        if arr[i] == target:
+            steps.append({
+                "type": "found",
+                "indices": [i],
+                "array": arr.copy(),
+                "target": target
+            })
+            return steps
+
+    steps.append({
+        "type": "not_found",
+        "indices": [],
+        "array": arr.copy(),
+        "target": target
+    })
+
+    return steps
+
+
+def binary_search(arr: list[int], target: int) -> list[dict]:
+    # Binary Search requires sorted data
+    arr.sort()
+
+    steps = []
+    left = 0
+    right = len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        steps.append({
+            "type": "compare",
+            "indices": [mid],
+            "array": arr.copy(),
+            "target": target,
+            "left": left,
+            "right": right
+        })
+
+        if arr[mid] == target:
+            steps.append({
+                "type": "found",
+                "indices": [mid],
+                "array": arr.copy(),
+                "target": target,
+                "left": left,
+                "right": right
+            })
+            return steps
+
+        elif arr[mid] < target:
+            steps.append({
+                "type": "eliminate",
+                "indices": list(range(left, mid + 1)),
+                "array": arr.copy(),
+                "target": target,
+                "left": left,
+                "right": right
+            })
+
+            left = mid + 1
+
+        else:
+            steps.append({
+                "type": "eliminate",
+                "indices": list(range(mid, right + 1)),
+                "array": arr.copy(),
+                "target": target,
+                "left": left,
+                "right": right
+            })
+
+            right = mid - 1
+
+    steps.append({
+        "type": "not_found",
+        "indices": [],
+        "array": arr.copy(),
+        "target": target
+    })
+
+    return steps
+
 
 #number theory
 

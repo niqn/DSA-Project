@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Algorithms{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/algs.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="page">
+
+    <header class="page-header">
+        <h1>Algorithm Visualizers</h1>
+        <p>Explore sorting and searching algorithms step by step.</p>
+    </header>
+
+    <!-- SORTING -->
+    <section class="visualizer-section sort-visualizer">
+
+        <div class="section-header">
+            <h2>Sorting Algorithms</h2>
+        </div>
+        <p class="section-description">
+            Watch how different sorting algorithms organize an array of values.
+        </p>
+
+        <div class="array-settings">
+            <label for="array-size">
+                Array Size: <span id="array-size-value">10</span>
+            </label>
+            <input
+                type="range"
+                id="array-size"
+                min="5"
+                max="50"
+                value="10">
+            <button id="generate-array">Generate Random Array</button>
+        </div>
+
+        <div class="algorithm-buttons">
+            <button id="bubble-btn" class="active">Bubble Sort</button>
+            <button id="insertion-btn">Insertion Sort</button>
+        </div>
+
+        <div id="array-display" class="array-display"></div>
+        <div id="bars" class="bars"></div>
+
+        <p id="status">Ready</p>
+
+        <div class="controls">
+            <button id="prev">Previous</button>
+            <button id="play">Play</button>
+            <button id="next">Next</button>
+            <button id="reset">Reset</button>
+        </div>
+
+        <div class="speed-settings">
+            <label for="speed">
+                Animation Speed: <span id="speed-value">50</span> ms
+            </label>
+            <input type="range" id="speed" min="1" max="10" value="5">
+        </div>
+
+        <p id="step-counter">Step 0 / 0</p>
+
+    </section>
+
+    <!-- SEARCHING -->
+    <section class="visualizer-section search-visualizer">
+
+        <div class="section-header">
+            <h2>Searching Algorithms</h2>
+        </div>
+        <p class="section-description">
+            Find a target value and follow how each searching algorithm explores the array.
+        </p>
+
+        <div class="array-settings">
+            <label for="search-array-size">
+                Array Size: <span id="search-array-size-value">10</span>
+            </label>
+            <input
+                type="range"
+                id="search-array-size"
+                min="5"
+                max="50"
+                value="10">
+            <button id="search-generate-array">Generate Random Array</button>
+        </div>
+
+        <div class="target-settings">
+            <label for="search-target">Target Value:</label>
+            <input
+                type="number"
+                id="search-target"
+                value="50"
+                min="1"
+                max="100">
+            <button id="search-target-btn">Search</button>
+        </div>
+
+        <div class="algorithm-buttons">
+            <button id="linear-btn" class="active">Linear Search</button>
+            <button id="binary-btn">Binary Search</button>
+        </div>
+
+        <div id="search-array-display" class="array-display"></div>
+        <div id="search-bars" class="bars"></div>
+
+        <p id="search-status">Ready</p>
+
+        <div class="controls">
+            <button id="search-prev">Previous</button>
+            <button id="search-play">Play</button>
+            <button id="search-next">Next</button>
+            <button id="search-reset">Reset</button>
+        </div>
+
+        <div class="speed-control">
+            <label for="search-speed">
+                Animation Speed: <span id="search-speed-value">50</span> ms
+            </label>
+            <input
+                type="range"
+                id="search-speed"
+                min="10"
+                max="500"
+                value="50"
+                step="10">
+        </div>
+
+        <p id="search-step-counter">Step 0 / 0</p>
+
+    </section>
+
+</main>
+
+<script src="{{ url_for('static', filename='javascript/visualizer.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/algs-sorting.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/algs-searching.js') }}"></script>
+
+{% endblock %}
