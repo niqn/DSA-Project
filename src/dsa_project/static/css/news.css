@@ -1,24 +1,4 @@
-
 /* News page */
-
-.page {
-    --blue: #2563eb;
-    --blue-dark: #1e40af;
-    --blue-soft: #dbeafe;
-    --text: #1e293b;
-    --muted: #64748b;
-    --line: #e2e8f0;
-
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 16px;
-    color: var(--text);
-}
-
-.page h1 {
-    margin: 8px 0 4px;
-    color: var(--blue-dark);
-}
 
 .back-link {
     color: var(--blue);

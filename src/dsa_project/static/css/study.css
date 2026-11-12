@@ -1,25 +1,4 @@
-
 /* Study page */
-
-.study {
-    --blue: #2563eb;
-    --blue-dark: #1e40af;
-    --blue-soft: #dbeafe;
-    --line: #e2e8f0;
-    --muted: #64748b;
-
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 16px;
-}
-
-.study h1 {
-    color: var(--blue-dark);
-}
-
-.muted {
-    color: var(--muted);
-}
 
 /* Add form */
 .study-form {
@@ -29,13 +8,6 @@
     max-width: 600px;
 }
 
-.study-form input {
-    padding: 10px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    font: inherit;
-}
-
 .study-form input[type="text"] {
     flex: 1;
     min-width: 0;
@@ -43,20 +15,6 @@
 
 .study-form input[type="number"] {
     width: 80px;
-}
-
-.study-form button {
-    padding: 10px 18px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--blue);
-    color: #fff;
-    font: inherit;
-    cursor: pointer;
-}
-
-.study-form button:hover {
-    background: var(--blue-dark);
 }
 
 /* Layout: Now and Up Next */
@@ -125,13 +83,6 @@
 }
 
 /* Up next */
-.study-next {
-    padding: 20px;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-}
-
 .study-next h3 {
     margin: 0 0 14px;
     color: var(--blue-dark);
