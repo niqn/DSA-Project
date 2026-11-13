@@ -134,10 +134,65 @@
 
     </section>
 
+
+    <!-- NUMBER THEORY -->
+    <section class="visualizer-section number-theory-section">
+
+        <div class="section-header">
+            <h2>Number Theory</h2>
+        </div>
+
+        <p class="section-description">
+            Calculate common number theory formulas and explore their results.
+        </p>
+
+        <div class="number-theory-layout">
+
+            <div class="number-theory-form">
+
+                <div class="formula-settings">
+                    <label for="formula-select">Select Formula</label>
+
+                    <select id="formula-select">
+                        <option value="gcd">Greatest Common Divisor (GCD)</option>
+                        <option value="lcm">Least Common Multiple (LCM)</option>
+                        <option value="division">Division Algorithm</option>
+                        <option value="divisibility">Divisibility</option>
+                        <option value="extended_gcd">Extended Euclidean Algorithm</option>
+                        <option value="binomial_coefficient">Binomial Coefficient</option>
+                        <option value="binomial_term">Binomial Expansion Term</option>
+                    </select>
+                </div>
+
+                <div id="formula-description" class="formula-description"></div>
+
+                <div id="formula-inputs" class="formula-inputs"></div>
+
+                <button type="button" id="calculate-formula" class="primary-btn">
+                    Calculate
+                </button>
+
+            </div>
+
+            <div class="number-theory-result">
+
+                <h3>Result</h3>
+
+                <div id="formula-result" class="formula-result">
+                    <p>Enter your values and calculate to see the result.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
 </main>
 
 <script src="{{ url_for('static', filename='javascript/visualizer.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/algs-sorting.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/algs-searching.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/algs-numtheory.js') }}"></script>
 
 {% endblock %}

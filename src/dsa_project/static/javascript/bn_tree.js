@@ -9,12 +9,16 @@ const rootInput = document.getElementById("root-value");
 const nodeInput = document.getElementById("node-value");
 const nodeSide = document.getElementById("node-side");
 
+const createRootControls = document.getElementById("create-root-controls");
+const nodeControls = document.getElementById("node-controls");
+
 const selectedLabel = document.getElementById("selected-node");
 const nodeCountLabel = document.getElementById("node-count");
 
 const traversalMethod = document.getElementById("traversal-method");
 const traversalResult = document.getElementById("traversal-result");
 const traversalStatus = document.getElementById("traversal-status");
+const traverseButton = document.getElementById("traverse-btn");
 
 const deleteButton = document.getElementById("delete-node-btn");
 const messageElement = document.getElementById("message");
@@ -36,7 +40,6 @@ async function apiRequest(url, method = "GET", body = null) {
         options.headers = {
             "Content-Type": "application/json"
         };
-
         options.body = JSON.stringify(body);
     }
 
@@ -90,7 +93,6 @@ function drawTree() {
         svg.setAttribute("viewBox", "0 0 600 350");
         svg.setAttribute("width", "600");
         svg.setAttribute("height", "350");
-
         svg.appendChild(text);
 
         nodeCountLabel.textContent = "0 Nodes";
@@ -101,12 +103,10 @@ function drawTree() {
     let index = 0;
     let maxDepth = 0;
 
-    // Calculate node positions using inorder traversal
     function calculatePositions(node, depth = 0) {
         if (!node) return;
 
         maxDepth = Math.max(maxDepth, depth);
-
         calculatePositions(node.left, depth + 1);
 
         positions.set(node.id, {
@@ -115,7 +115,6 @@ function drawTree() {
         });
 
         index++;
-
         calculatePositions(node.right, depth + 1);
     }
 
@@ -128,7 +127,6 @@ function drawTree() {
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
 
-    // Draw edges first
     function drawEdges(node) {
         if (!node) return;
 
@@ -138,7 +136,6 @@ function drawTree() {
             if (!child) return;
 
             const childPosition = positions.get(child.id);
-
             const line = document.createElementNS(
                 "http://www.w3.org/2000/svg",
                 "line"
@@ -159,12 +156,10 @@ function drawTree() {
 
     drawEdges(treeData);
 
-    // Draw nodes
     function drawNodes(node) {
         if (!node) return;
 
         const position = positions.get(node.id);
-
         const circle = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "circle"
@@ -176,25 +171,17 @@ function drawTree() {
 
         let className = "node-circle";
 
-        if (node.id === selectedNodeId) {
-            className += " selected";
-        }
-
-        if (node.id === activeNodeId) {
-            className += " active";
-        }
+        if (node.id === selectedNodeId) className += " selected";
+        if (node.id === activeNodeId) className += " active";
 
         circle.setAttribute("class", className);
 
         circle.addEventListener("click", () => {
             animationToken++;
             activeNodeId = null;
-
             selectedNodeId = node.id;
 
-            selectedLabel.textContent =
-                `${node.data} (ID: ${node.id})`;
-
+            selectedLabel.textContent = `${node.data} (ID: ${node.id})`;
             deleteButton.disabled = false;
 
             drawTree();
@@ -202,7 +189,6 @@ function drawTree() {
 
         svg.appendChild(circle);
 
-        // Node value
         const text = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
@@ -212,10 +198,8 @@ function drawTree() {
         text.setAttribute("y", position.y);
         text.setAttribute("class", "node-text");
         text.textContent = node.data;
-
         svg.appendChild(text);
 
-        // Node ID
         const idText = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
@@ -225,7 +209,6 @@ function drawTree() {
         idText.setAttribute("y", position.y + 40);
         idText.setAttribute("class", "node-id");
         idText.textContent = `ID: ${node.id}`;
-
         svg.appendChild(idText);
 
         drawNodes(node.left);
@@ -233,18 +216,22 @@ function drawTree() {
     }
 
     drawNodes(treeData);
-
-    nodeCountLabel.textContent =
-        `${positions.size} Nodes`;
+    nodeCountLabel.textContent = `${positions.size} Nodes`;
 }
 
 
 // ==========================================
-// UPDATE TREE
+// UPDATE TREE AND CONTROL VISIBILITY
 // ==========================================
 
 function updateTree(data) {
     treeData = data.tree;
+
+    const hasRoot = treeData !== null;
+
+    createRootControls.hidden = hasRoot;
+    nodeControls.hidden = !hasRoot;
+    traverseButton.disabled = !hasRoot;
 
     if (
         selectedNodeId !== null &&
@@ -262,16 +249,11 @@ function updateTree(data) {
 }
 
 
-// Find node in frontend tree
 function findNode(node, id) {
     if (!node) return null;
-
     if (node.id === id) return node;
 
-    return (
-        findNode(node.left, id) ||
-        findNode(node.right, id)
-    );
+    return findNode(node.left, id) || findNode(node.right, id);
 }
 
 
@@ -298,14 +280,10 @@ async function createRoot() {
 
         selectedNodeId = result.tree.id;
         activeNodeId = null;
-
         rootInput.value = "";
 
         updateTree(result);
-
-        selectedLabel.textContent =
-            `${result.tree.data} (ID: ${result.tree.id})`;
-
+        selectedLabel.textContent = `${result.tree.data} (ID: ${result.tree.id})`;
         deleteButton.disabled = false;
 
         showMessage("Root created.");
@@ -346,9 +324,7 @@ async function addNode() {
         );
 
         activeNodeId = null;
-
         updateTree(result);
-
         nodeInput.value = "";
 
         showMessage("Node added.");
@@ -368,9 +344,7 @@ async function deleteNode() {
         return;
     }
 
-    if (!confirm("Delete this node and all its descendants?")) {
-        return;
-    }
+    if (!confirm("Delete this node and all its descendants?")) return;
 
     try {
         animationToken++;
@@ -378,18 +352,14 @@ async function deleteNode() {
         const result = await apiRequest(
             "/binary-tree/delete",
             "POST",
-            {
-                node_id: selectedNodeId
-            }
+            { node_id: selectedNodeId }
         );
 
         selectedNodeId = null;
         activeNodeId = null;
-
         selectedLabel.textContent = "None";
 
         updateTree(result);
-
         showMessage("Node deleted.");
     } catch (error) {
         showMessage(error.message);
@@ -416,7 +386,6 @@ function displayTraversal(steps, currentIndex = -1) {
 
     steps.forEach((step, index) => {
         const item = document.createElement("span");
-
         item.className = "result-node";
 
         if (index === currentIndex) {
@@ -424,7 +393,6 @@ function displayTraversal(steps, currentIndex = -1) {
         }
 
         item.textContent = step.data;
-
         traversalResult.appendChild(item);
     });
 }
@@ -435,42 +403,32 @@ async function traverse() {
         const result = await apiRequest(
             "/binary-tree/traverse",
             "POST",
-            {
-                method: traversalMethod.value
-            }
+            { method: traversalMethod.value }
         );
 
         const token = ++animationToken;
-
         activeNodeId = null;
 
         const steps = result.steps;
-
         traversalStatus.textContent = "Running";
-
         displayTraversal(steps);
 
         for (let i = 0; i < steps.length; i++) {
             if (token !== animationToken) return;
 
             activeNodeId = steps[i].id;
-
             drawTree();
             displayTraversal(steps, i);
 
-            traversalStatus.textContent =
-                `Visiting ${i + 1} / ${steps.length}`;
-
+            traversalStatus.textContent = `Visiting ${i + 1} / ${steps.length}`;
             await sleep(650);
         }
 
         if (token !== animationToken) return;
 
         activeNodeId = null;
-
         drawTree();
         displayTraversal(steps);
-
         traversalStatus.textContent = "Complete";
 
     } catch (error) {
@@ -486,8 +444,6 @@ async function traverse() {
 
 function resetTree() {
     if (!confirm("Reset the entire tree?")) return;
-
-    // Reloading the page initializes a fresh session tree
     window.location.reload();
 }
 
@@ -519,7 +475,6 @@ document.getElementById("reset-btn")
 async function init() {
     try {
         const result = await apiRequest("/binary-tree/data");
-
         updateTree(result);
     } catch (error) {
         showMessage(error.message);

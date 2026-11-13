@@ -266,3 +266,139 @@
         flex: 1 1 40%;
     }
 }
+
+
+/* =================================
+   NUMBER THEORY
+================================= */
+
+.number-theory-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.number-theory-form,
+.number-theory-result {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.formula-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.formula-settings label,
+.formula-input label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.formula-settings select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+}
+
+.formula-description {
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.formula-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.formula-input {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.formula-input input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.number-theory-form .primary-btn {
+    width: 100%;
+}
+
+.number-theory-result h3 {
+    margin: 0 0 14px;
+    color: var(--blue-dark);
+    font-size: 1rem;
+}
+
+.formula-result {
+    min-height: 100px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    overflow-wrap: anywhere;
+}
+
+.formula-result p {
+    margin: 0;
+}
+
+.result-value {
+    color: var(--blue-dark);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.result-equation {
+    margin-bottom: 14px !important;
+    color: var(--blue-dark);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.result-message {
+    margin-bottom: 12px !important;
+    font-weight: 600;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+    text-transform: capitalize;
+    font-size: 0.9rem;
+}
+
+.result-row strong {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .number-theory-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .formula-inputs {
+        grid-template-columns: 1fr;
+    }
+}

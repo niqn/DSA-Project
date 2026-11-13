@@ -146,24 +146,135 @@ def binary_search(arr: list[int], target: int) -> list[dict]:
 
 #number theory
 
-def num_theory_main(choice: int, *args: int) -> int|str|tuple[int, int]:
-    match(choice):
-        #gcd
-        case 1:
-            return math.gcd(*args)
-        #lcm
-        case 2:
-            return math.lcm(*args)
-        #divisibility
-        case 3:
-            if len(args) != 2:
-                return "Divisibility needs two numbers exactly"
-            a, b = args
-            if b == 0:
-                raise ValueError("Cannot divide by zero")
-            q = a // b
-            r = a % b
-            return q, r
-        case _:
-            raise ValueError("Invalid operation")
+def gcd(a: int, b: int) -> int:
+    return math.gcd(a, b)
 
+
+def lcm(a: int, b: int) -> int:
+    return math.lcm(a, b)
+
+
+def division_algorithm(a: int, b: int) -> dict:
+    if b == 0:
+        raise ValueError("The divisor cannot be zero.")
+
+    remainder = a % abs(b)
+    quotient = (a - remainder) // b
+
+    return {
+        "quotient": quotient,
+        "remainder": remainder,
+        "equation": f"{a} = ({b})({quotient}) + {remainder}"
+    }
+
+
+def divisibility(a: int, b: int) -> dict:
+    if a == 0:
+        raise ValueError("The divisor cannot be zero.")
+
+    divisible = b % a == 0
+
+    return {
+        "divisible": divisible,
+        "message": (
+            f"{a} divides {b}"
+            if divisible
+            else f"{a} does not divide {b}"
+        )
+    }
+
+
+def extended_gcd(a: int, b: int) -> dict:
+    old_r, r = abs(a), abs(b)
+    old_s, s = 1, 0
+    old_t, t = 0, 1
+
+    while r:
+        q = old_r // r
+        old_r, r = r, old_r - q * r
+        old_s, s = s, old_s - q * s
+        old_t, t = t, old_t - q * t
+
+    x = old_s if a >= 0 else -old_s
+    y = old_t if b >= 0 else -old_t
+
+    return {
+        "gcd": old_r,
+        "x": x,
+        "y": y,
+        "equation": f"{old_r} = ({a})({x}) + ({b})({y})"
+    }
+
+
+def binomial_coefficient(n: int, k: int) -> int:
+    if n < 0 or k < 0 or k > n:
+        raise ValueError("Require n >= 0 and 0 <= k <= n.")
+
+    return math.comb(n, k)
+
+
+def binomial_term(n: int, k: int, a: int, b: int) -> dict:
+    if n < 0 or k < 0 or k > n:
+        raise ValueError("Require n >= 0 and 0 <= k <= n.")
+
+    coefficient = math.comb(n, k)
+    value = coefficient * (a ** k) * (b ** (n - k))
+
+    return {
+        "coefficient": coefficient,
+        "value": value,
+        "term": f"{coefficient} * ({a})^{k} * ({b})^{n-k}"
+    }
+
+
+# =========================
+# FORMULA REGISTRY
+# =========================
+
+NUMBER_THEORY_FORMULAS = {
+    "gcd": {
+        "function": gcd,
+        "fields": ["a", "b"]
+    },
+    "lcm": {
+        "function": lcm,
+        "fields": ["a", "b"]
+    },
+    "division": {
+        "function": division_algorithm,
+        "fields": ["a", "b"]
+    },
+    "divisibility": {
+        "function": divisibility,
+        "fields": ["a", "b"]
+    },
+    "extended_gcd": {
+        "function": extended_gcd,
+        "fields": ["a", "b"]
+    },
+    "binomial_coefficient": {
+        "function": binomial_coefficient,
+        "fields": ["n", "k"]
+    },
+    "binomial_term": {
+        "function": binomial_term,
+        "fields": ["n", "k", "a", "b"]
+    }
+}
+
+
+def calculate_number_theory(operation: str, values: dict):
+    formula = NUMBER_THEORY_FORMULAS.get(operation)
+
+    if formula is None:
+        raise ValueError("Unknown number theory operation.")
+
+    fields = formula["fields"]
+
+    # Validate and convert inputs
+    try:
+        args = [int(values[field]) for field in fields]
+    except (KeyError, TypeError, ValueError):
+        raise ValueError("Please provide valid integer inputs.")
+
+    return formula["function"](*args)

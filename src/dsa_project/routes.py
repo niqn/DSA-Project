@@ -4,7 +4,7 @@ from flask import jsonify, redirect, render_template, request, session, url_for
 from .services import newsDSA, weatherDSA, studyDSA, flashDSA
 
 from . import app
-from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search
+from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search, calculate_number_theory
 from .services.binary_tree import BinaryTree
 
 
@@ -99,7 +99,6 @@ def flashcards_delete():
 
 
 
-
 @app.route('/algorithms', methods=['GET'])
 def algorithms():
     return render_template('algorithms.html')
@@ -165,6 +164,38 @@ def algorithm_steps():
         "steps": steps
     })
 
+@app.route("/algorithms/number-theory", methods=["POST"])
+def number_theory():
+    data = request.get_json(silent=True) or {}
+
+    operation = data.get("operation")
+    values = data.get("values", {})
+
+    if not isinstance(operation, str):
+        return jsonify({
+            "success": False,
+            "error": "Please select a valid operation."
+        }), 400
+
+    if not isinstance(values, dict):
+        return jsonify({
+            "success": False,
+            "error": "Invalid input values."
+        }), 400
+
+    try:
+        result = calculate_number_theory(operation, values)
+
+        return jsonify({
+            "success": True,
+            "result": result
+        })
+
+    except ValueError as error:
+        return jsonify({
+            "success": False,
+            "error": str(error)
+        }), 400
 
 @app.route('/binary-tree')
 def binary_tree():
