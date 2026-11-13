@@ -1,7 +1,4 @@
-
-// ==========================================
-// ELEMENTS AND STATE
-// ==========================================
+//temp. will refactor everything about bn_tree
 
 const svg = document.getElementById("tree-svg");
 
@@ -28,11 +25,6 @@ let selectedNodeId = null;
 let activeNodeId = null;
 let animationToken = 0;
 
-
-// ==========================================
-// API
-// ==========================================
-
 async function apiRequest(url, method = "GET", body = null) {
     const options = { method };
 
@@ -54,10 +46,6 @@ async function apiRequest(url, method = "GET", body = null) {
 }
 
 
-// ==========================================
-// MESSAGES
-// ==========================================
-
 let messageTimeout;
 
 function showMessage(message) {
@@ -72,9 +60,6 @@ function showMessage(message) {
 }
 
 
-// ==========================================
-// TREE RENDERING
-// ==========================================
 
 function drawTree() {
     svg.innerHTML = "";
@@ -220,9 +205,6 @@ function drawTree() {
 }
 
 
-// ==========================================
-// UPDATE TREE AND CONTROL VISIBILITY
-// ==========================================
 
 function updateTree(data) {
     treeData = data.tree;
@@ -257,10 +239,7 @@ function findNode(node, id) {
 }
 
 
-// ==========================================
-// CREATE ROOT
-// ==========================================
-
+//create button
 async function createRoot() {
     const value = rootInput.value.trim();
 
@@ -293,10 +272,7 @@ async function createRoot() {
 }
 
 
-// ==========================================
-// ADD NODE
-// ==========================================
-
+//add button
 async function addNode() {
     if (selectedNodeId === null) {
         showMessage("Select a parent node first.");
@@ -334,9 +310,7 @@ async function addNode() {
 }
 
 
-// ==========================================
-// DELETE NODE
-// ==========================================
+//delete button
 
 async function deleteNode() {
     if (selectedNodeId === null) {
@@ -367,9 +341,7 @@ async function deleteNode() {
 }
 
 
-// ==========================================
-// TRAVERSAL
-// ==========================================
+//travers
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -438,9 +410,7 @@ async function traverse() {
 }
 
 
-// ==========================================
-// RESET
-// ==========================================
+//reset button
 
 function resetTree() {
     if (!confirm("Reset the entire tree?")) return;
@@ -448,9 +418,7 @@ function resetTree() {
 }
 
 
-// ==========================================
-// EVENT LISTENERS
-// ==========================================
+
 
 document.getElementById("create-root-btn")
     .addEventListener("click", createRoot);
@@ -468,9 +436,6 @@ document.getElementById("reset-btn")
     .addEventListener("click", resetTree);
 
 
-// ==========================================
-// INITIALIZE
-// ==========================================
 
 async function init() {
     try {
