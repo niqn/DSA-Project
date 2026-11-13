@@ -4,7 +4,7 @@ from flask import jsonify, redirect, render_template, request, session, url_for
 from .services import newsDSA, weatherDSA, studyDSA, flashDSA
 
 from . import app
-from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search, calculate_number_theory
+from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search, calculate_number_theory, NUMBER_THEORY_METADATA
 from .services.binary_tree import BinaryTree
 
 
@@ -101,7 +101,7 @@ def flashcards_delete():
 
 @app.route('/algorithms', methods=['GET'])
 def algorithms():
-    return render_template('algorithms.html')
+    return render_template('algorithms.html', formulas=NUMBER_THEORY_METADATA)
 
 
 @app.route('/algorithms/steps', methods=['POST'])

@@ -154,13 +154,9 @@
                     <label for="formula-select">Select Formula</label>
 
                     <select id="formula-select">
-                        <option value="gcd">Greatest Common Divisor (GCD)</option>
-                        <option value="lcm">Least Common Multiple (LCM)</option>
-                        <option value="division">Division Algorithm</option>
-                        <option value="divisibility">Divisibility</option>
-                        <option value="extended_gcd">Extended Euclidean Algorithm</option>
-                        <option value="binomial_coefficient">Binomial Coefficient</option>
-                        <option value="binomial_term">Binomial Expansion Term</option>
+                        {% for key, formula in formulas.items() %}
+                            <option value="{{ key }}">{{ formula.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
@@ -190,6 +186,9 @@
 
 </main>
 
+<script>
+    const formulas = {{ formulas | tojson }};
+</script>
 <script src="{{ url_for('static', filename='javascript/visualizer.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/algs-sorting.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/algs-searching.js') }}"></script>

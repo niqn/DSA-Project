@@ -2,7 +2,7 @@
 (() => {
 
 class SortingVisualizer extends Visualizer {
-
+    // constructs buttons
     constructor() {
         super({
             defaultAlgorithm: "bubble",
@@ -23,7 +23,7 @@ class SortingVisualizer extends Visualizer {
                 generate: "generate-array"
             }
         });
-
+        // alg chooser
         this.algorithmButtons = {
             bubble: document.getElementById("bubble-btn"),
             insertion: document.getElementById("insertion-btn")
@@ -36,16 +36,10 @@ class SortingVisualizer extends Visualizer {
     }
 
 
-
-    // =========================
-    // ALGORITHM DESCRIPTIONS
-    // =========================
-
     describeStep(step) {
         const indices = step.indices;
 
         switch (step.type) {
-
             case "compare":
                 this.elements.status.textContent =
                     `Comparing indices ${indices.join(" and ")}`;
@@ -74,19 +68,10 @@ class SortingVisualizer extends Visualizer {
     }
 
 
-    // =========================
-    // ALGORITHM SELECTION
-    // =========================
-
     async selectAlgorithm(algorithm, generateNew = false) {
         await this.requestSteps(algorithm, generateNew);
     }
 }
-
-
-// =========================
-// INITIALIZATION
-// =========================
 
 const sortingVisualizer = new SortingVisualizer();
 

@@ -53,106 +53,47 @@ def linear_search(arr: list[int], target: int) -> list[dict]:
     steps = []
 
     for i in range(len(arr)):
-        steps.append({
-            "type": "compare",
-            "indices": [i],
-            "array": arr.copy(),
-            "target": target
-        })
-
+        steps.append({"type": "compare", "indices": [i], "array": arr.copy(), "target": target})
         if arr[i] == target:
-            steps.append({
-                "type": "found",
-                "indices": [i],
-                "array": arr.copy(),
-                "target": target
-            })
+            steps.append({"type": "found", "indices": [i], "array": arr.copy(), "target": target})
             return steps
 
-    steps.append({
-        "type": "not_found",
-        "indices": [],
-        "array": arr.copy(),
-        "target": target
-    })
+    steps.append({"type": "not_found", "indices": [], "array": arr.copy(), "target": target})
 
     return steps
 
 
 def binary_search(arr: list[int], target: int) -> list[dict]:
-    # Binary Search requires sorted data
     arr.sort()
-
     steps = []
     left = 0
     right = len(arr) - 1
 
     while left <= right:
         mid = (left + right) // 2
-
-        steps.append({
-            "type": "compare",
-            "indices": [mid],
-            "array": arr.copy(),
-            "target": target,
-            "left": left,
-            "right": right
-        })
+        steps.append({"type": "compare", "indices": [mid], "array": arr.copy(), "target": target, "left": left, "right": right})
 
         if arr[mid] == target:
-            steps.append({
-                "type": "found",
-                "indices": [mid],
-                "array": arr.copy(),
-                "target": target,
-                "left": left,
-                "right": right
-            })
+            steps.append({"type": "found", "indices": [mid], "array": arr.copy(), "target": target, "left": left, "right": right})
             return steps
-
         elif arr[mid] < target:
-            steps.append({
-                "type": "eliminate",
-                "indices": list(range(left, mid + 1)),
-                "array": arr.copy(),
-                "target": target,
-                "left": left,
-                "right": right
-            })
-
+            steps.append({"type": "eliminate", "indices": list(range(left, mid + 1)), "array": arr.copy(), "target": target, "left": left, "right": right})
             left = mid + 1
-
         else:
-            steps.append({
-                "type": "eliminate",
-                "indices": list(range(mid, right + 1)),
-                "array": arr.copy(),
-                "target": target,
-                "left": left,
-                "right": right
-            })
-
+            steps.append({"type": "eliminate", "indices": list(range(mid, right + 1)), "array": arr.copy(), "target": target, "left": left, "right": right})
             right = mid - 1
-
-    steps.append({
-        "type": "not_found",
-        "indices": [],
-        "array": arr.copy(),
-        "target": target
-    })
+    steps.append({"type": "not_found", "indices": [], "array": arr.copy(), "target": target})
 
     return steps
 
 
-#number theory
+#=======================================number theory section
 
 def gcd(a: int, b: int) -> int:
     return math.gcd(a, b)
 
-
 def lcm(a: int, b: int) -> int:
     return math.lcm(a, b)
-
 
 def division_algorithm(a: int, b: int) -> dict:
     if b == 0:
@@ -161,27 +102,15 @@ def division_algorithm(a: int, b: int) -> dict:
     remainder = a % abs(b)
     quotient = (a - remainder) // b
 
-    return {
-        "quotient": quotient,
-        "remainder": remainder,
-        "equation": f"{a} = ({b})({quotient}) + {remainder}"
-    }
-
+    return {"quotient": quotient, "remainder": remainder, "equation": f"{a} = ({b})({quotient}) + {remainder}"}
 
 def divisibility(a: int, b: int) -> dict:
     if a == 0:
         raise ValueError("The divisor cannot be zero.")
 
     divisible = b % a == 0
-
-    return {
-        "divisible": divisible,
-        "message": (
-            f"{a} divides {b}"
-            if divisible
-            else f"{a} does not divide {b}"
-        )
-    }
+    return {"divisible": divisible, "message": (
+            f"{a} divides {b}" if divisible else f"{a} does not divide {b}")}
 
 
 def extended_gcd(a: int, b: int) -> dict:
@@ -198,20 +127,17 @@ def extended_gcd(a: int, b: int) -> dict:
     x = old_s if a >= 0 else -old_s
     y = old_t if b >= 0 else -old_t
 
-    return {
-        "gcd": old_r,
+    return {"gcd": old_r,
         "x": x,
         "y": y,
         "equation": f"{old_r} = ({a})({x}) + ({b})({y})"
     }
-
 
 def binomial_coefficient(n: int, k: int) -> int:
     if n < 0 or k < 0 or k > n:
         raise ValueError("Require n >= 0 and 0 <= k <= n.")
 
     return math.comb(n, k)
-
 
 def binomial_term(n: int, k: int, a: int, b: int) -> dict:
     if n < 0 or k < 0 or k > n:
@@ -227,9 +153,7 @@ def binomial_term(n: int, k: int, a: int, b: int) -> dict:
     }
 
 
-# =========================
-# FORMULA REGISTRY
-# =========================
+# formula
 
 NUMBER_THEORY_FORMULAS = {
     "gcd": {
@@ -262,7 +186,74 @@ NUMBER_THEORY_FORMULAS = {
     }
 }
 
+NUMBER_THEORY_METADATA = {
+    "gcd": {
+        "name": "Greatest Common Divisor (GCD)",
+        "description": "Find the greatest positive integer that divides both a and b.",
+        "fields": [
+            {"id": "a", "label": "First Integer", "default": 252},
+            {"id": "b", "label": "Second Integer", "default": 198}
+        ]
+    },
 
+    "lcm": {
+        "name": "Least Common Multiple (LCM)",
+        "description": "Find the smallest positive integer that is a multiple of both a and b.",
+        "fields": [
+            {"id": "a", "label": "First Integer", "default": 12},
+            {"id": "b", "label": "Second Integer", "default": 18}
+        ]
+    },
+
+    "division": {
+        "name": "Division Algorithm",
+        "description": "Express a as bq + r, where 0 ≤ r < |b|.",
+        "fields": [
+            {"id": "a", "label": "Dividend (a)", "default": -157},
+            {"id": "b", "label": "Divisor (b)", "default": 23}
+        ]
+    },
+
+    "divisibility": {
+        "name": "Divisibility",
+        "description": "Determine whether a divides b. In other words, whether b = ak for some integer k.",
+        "fields": [
+            {"id": "a", "label": "Divisor (a)", "default": 7},
+            {"id": "b", "label": "Number (b)", "default": 84}
+        ]
+    },
+
+    "extended_gcd": {
+        "name": "Extended Euclidean Algorithm",
+        "description": "Find gcd(a, b) and integers x and y such that gcd(a, b) = ax + by.",
+        "fields": [
+            {"id": "a", "label": "First Integer", "default": 252},
+            {"id": "b", "label": "Second Integer", "default": 198}
+        ]
+    },
+
+    "binomial_coefficient": {
+        "name": "Binomial Coefficient",
+        "description": "Calculate the binomial coefficient C(n, k), also written as n choose k.",
+        "fields": [
+            {"id": "n", "label": "n", "default": 8},
+            {"id": "k", "label": "k", "default": 5}
+        ]
+    },
+
+    "binomial_term": {
+        "name": "Binomial Expansion Term",
+        "description": "Find the coefficient of x^k in the expansion of (ax + b)^n.",
+        "fields": [
+            {"id": "n", "label": "Exponent (n)", "default": 8},
+            {"id": "k", "label": "Power of x (k)", "default": 5},
+            {"id": "a", "label": "Coefficient of x (a)", "default": 2},
+            {"id": "b", "label": "Constant (b)", "default": -3}
+        ]
+    }
+}
+
+#export function
 def calculate_number_theory(operation: str, values: dict):
     formula = NUMBER_THEORY_FORMULAS.get(operation)
 
@@ -271,7 +262,6 @@ def calculate_number_theory(operation: str, values: dict):
 
     fields = formula["fields"]
 
-    # Validate and convert inputs
     try:
         args = [int(values[field]) for field in fields]
     except (KeyError, TypeError, ValueError):

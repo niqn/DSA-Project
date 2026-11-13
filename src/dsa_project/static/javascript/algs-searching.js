@@ -2,7 +2,7 @@
 (() => {
 
 class SearchingVisualizer extends Visualizer {
-
+    // constructs buttons
     constructor() {
         super({
             defaultAlgorithm: "linear",
@@ -25,19 +25,18 @@ class SearchingVisualizer extends Visualizer {
         });
 
         this.elements.target = document.getElementById("search-target");
-
+        // alg chooser
         this.algorithmButtons = {
             linear: document.getElementById("linear-btn"),
             binary: document.getElementById("binary-btn")
         };
-
         Object.entries(this.algorithmButtons).forEach(([algorithm, button]) => {
             button.addEventListener("click", () => {
                 this.selectAlgorithm(algorithm);
             });
         });
 
-        // Search button
+        //search
         document.getElementById("search-target-btn")
             .addEventListener("click", () => {
                 this.selectAlgorithm(this.selectedAlgorithm);
@@ -45,15 +44,10 @@ class SearchingVisualizer extends Visualizer {
     }
 
 
-    // =========================
-    // ALGORITHM DESCRIPTIONS
-    // =========================
-
     describeStep(step) {
         const indices = step.indices;
 
         switch (step.type) {
-
             case "compare":
                 this.elements.status.textContent =
                     `Checking index ${indices[0]}: ${step.array[indices[0]]} against ${step.target}`;
@@ -77,18 +71,11 @@ class SearchingVisualizer extends Visualizer {
     }
 
 
-    // =========================
-    // ALGORITHM SELECTION
-    // =========================
-
     async selectAlgorithm(algorithm, generateNew = false) {
 
         const target = Number(this.elements.target.value);
 
-        if (
-            this.elements.target.value.trim() === "" ||
-            !Number.isInteger(target)
-        ) {
+        if (this.elements.target.value.trim() === "" || !Number.isInteger(target)) {
             this.elements.status.textContent =
                 "Please enter a valid target.";
             return;
@@ -101,11 +88,6 @@ class SearchingVisualizer extends Visualizer {
         );
     }
 }
-
-
-// =========================
-// INITIALIZATION
-// =========================
 
 const searchingVisualizer = new SearchingVisualizer();
 

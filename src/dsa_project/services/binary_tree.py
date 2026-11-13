@@ -17,7 +17,6 @@ class BinaryTree:
         self.parents = {}
         self.next_id = 0
 
-    # CREATE ROOT
     def create_root(self, data):
         if self.root is not None:
             return "Tree already has a root."
@@ -30,16 +29,13 @@ class BinaryTree:
 
         return node
 
-    # ADD NODE
     def add(self, parent_id, data, side):
         parent = self.nodes.get(parent_id)
 
         if parent is None:
             return "Parent node does not exist."
-
         if side not in ("left", "right"):
             return "Invalid side."
-
         if getattr(parent, side) is not None:
             return f"The {side} child already exists."
 
@@ -54,7 +50,6 @@ class BinaryTree:
 
         return node
 
-    # DELETE NODE AND DESCENDANTS
     def delete(self, node_id):
         node = self.nodes.get(node_id)
 
@@ -89,7 +84,6 @@ class BinaryTree:
 
         return True
 
-    # TRAVERSAL
     def traverse(self, method="inorder"):
         result = []
 
@@ -123,27 +117,10 @@ class BinaryTree:
             postorder(node.right)
             visit(node)
 
-        def levelorder(node):
-            if node is None:
-                return
-
-            queue = deque([node])
-
-            while queue:
-                current = queue.popleft()
-                visit(current)
-
-                if current.left:
-                    queue.append(current.left)
-
-                if current.right:
-                    queue.append(current.right)
-
         methods = {
             "inorder": inorder,
             "preorder": preorder,
             "postorder": postorder,
-            "levelorder": levelorder
         }
 
         if method not in methods:
@@ -153,7 +130,7 @@ class BinaryTree:
 
         return result
 
-    # SERIALIZE TREE
+    #turn into dict to send to js
     def to_dict(self):
         def serialize(node):
             if node is None:
@@ -168,14 +145,13 @@ class BinaryTree:
 
         return serialize(self.root)
 
-    # EXPORT STATE FOR FLASK SESSION
     def to_state(self):
         return {
             "root": self.to_dict(),
             "next_id": self.next_id
         }
 
-    # RECONSTRUCT TREE FROM SESSION
+    #from website to python
     @classmethod
     def from_state(cls, state):
         tree = cls()
