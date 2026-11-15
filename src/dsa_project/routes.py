@@ -6,7 +6,10 @@ from .services import newsDSA, weatherDSA, studyDSA, flashDSA
 from . import app
 from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search, calculate_number_theory, NUMBER_THEORY_METADATA
 from .services.binary_tree import BinaryTree
-
+from .services.maze import Maze
+from .services.maze_algorithms import (
+    generate_maze, breadth_first_search, depth_first_search
+)
 
 @app.route('/')
 def home():
@@ -329,6 +332,65 @@ def graph_maker():
 @app.route('/maze')
 def maze_maker():
     return render_template('maze.html')
+
+
+# CREATE AN EMPTY GRAPH GRID
+@app.route('/maze/data', methods=['GET'])
+def maze_data():
+    try:
+        rows = int(request.args.get("rows", 15))
+        cols = int(request.args.get("cols", 15))
+    except ValueError:
+        return jsonify({"error": "Invalid grid dimensions."}), 400
+
+    if not (5 <= rows <= 30 and 5 <= cols <= 30):
+        return jsonify({"error": "Grid dimensions must be between 5 and 30."}), 400
+
+    maze = Maze(rows, cols)
+    return jsonify({"maze": maze.to_dict(), "steps": []})
+
+
+# GENERATE A GRAPH-BASED MAZE
+@app.route('/maze/generate', methods=['POST'])
+def maze_generate():
+    data = request.get_json(silent=True) or {}
+    rows = data.get("rows", 15)
+    cols = data.get("cols", 15)
+
+    if type(rows) is not int or type(cols) is not int:
+        return jsonify({"error": "Invalid grid dimensions."}), 400
+    if not (5 <= rows <= 30 and 5 <= cols <= 30):
+        return jsonify({"error": "Grid dimensions must be between 5 and 30."}), 400
+
+    working_maze = Maze(rows, cols)
+    steps = generate_maze(working_maze)
+    initial_maze = Maze(rows, cols)
+
+    return jsonify({
+        "maze": initial_maze.to_dict(),
+        "final_maze": working_maze.to_dict(),
+        "steps": steps
+    })
+
+
+# TRAVERSE THE GENERATED GRAPH
+@app.route('/maze/solve', methods=['POST'])
+def maze_solve():
+    data = request.get_json(silent=True) or {}
+    algorithm = data.get("algorithm")
+
+    if algorithm not in ("bfs", "dfs"):
+        return jsonify({"error": "Choose BFS or DFS."}), 400
+
+    try:
+        maze = Maze.from_dict(data.get("maze"))
+        steps = (breadth_first_search(maze) if algorithm == "bfs"
+                 else depth_first_search(maze))
+    except (TypeError, ValueError, KeyError) as error:
+        return jsonify({"error": str(error) or "Invalid maze graph."}), 400
+
+    return jsonify({"algorithm": algorithm, "steps": steps})
+
 
 @app.route('/simon')
 def simon():

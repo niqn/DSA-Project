@@ -8,8 +8,8 @@
 
 {% block content %}
 
-<main class="page">
-
+<div class="page">
+    <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
     <header class="page-header">
         <h1>Algorithm Visualizers</h1>
         <p>Explore sorting and searching algorithms step by step.</p>
@@ -35,24 +35,24 @@
                 min="5"
                 max="50"
                 value="10">
-            <button id="generate-array">Generate Random Array</button>
+            <button type="button" id="generate-array">Generate Random Array</button>
         </div>
 
         <div class="algorithm-buttons">
-            <button id="bubble-btn" class="active">Bubble Sort</button>
-            <button id="insertion-btn">Insertion Sort</button>
+            <button type="button" id="bubble-btn" class="active">Bubble Sort</button>
+            <button type="button" id="insertion-btn">Insertion Sort</button>
         </div>
 
         <div id="array-display" class="array-display"></div>
         <div id="bars" class="bars"></div>
 
-        <p id="status">Ready</p>
+        <p id="status" aria-live="polite">Ready</p>
 
         <div class="controls">
-            <button id="prev">Previous</button>
-            <button id="play">Play</button>
-            <button id="next">Next</button>
-            <button id="reset">Reset</button>
+            <button type="button" id="prev">Previous</button>
+            <button type="button" id="play">Play</button>
+            <button type="button" id="next">Next</button>
+            <button type="button" id="reset">Reset</button>
         </div>
 
         <div class="speed-settings">
@@ -86,7 +86,7 @@
                 min="5"
                 max="50"
                 value="10">
-            <button id="search-generate-array">Generate Random Array</button>
+            <button type="button" id="search-generate-array">Generate Random Array</button>
         </div>
 
         <div class="target-settings">
@@ -97,24 +97,24 @@
                 value="50"
                 min="1"
                 max="100">
-            <button id="search-target-btn">Search</button>
+            <button type="button" id="search-target-btn">Search</button>
         </div>
 
         <div class="algorithm-buttons">
-            <button id="linear-btn" class="active">Linear Search</button>
-            <button id="binary-btn">Binary Search</button>
+            <button type="button" id="linear-btn" class="active">Linear Search</button>
+            <button type="button" id="binary-btn">Binary Search</button>
         </div>
 
         <div id="search-array-display" class="array-display"></div>
         <div id="search-bars" class="bars"></div>
 
-        <p id="search-status">Ready</p>
+        <p id="search-status" aria-live="polite">Ready</p>
 
         <div class="controls">
-            <button id="search-prev">Previous</button>
-            <button id="search-play">Play</button>
-            <button id="search-next">Next</button>
-            <button id="search-reset">Reset</button>
+            <button type="button" id="search-prev">Previous</button>
+            <button type="button" id="search-play">Play</button>
+            <button type="button" id="search-next">Next</button>
+            <button type="button" id="search-reset">Reset</button>
         </div>
 
         <div class="speed-control">
@@ -184,7 +184,7 @@
 
     </section>
 
-</main>
+</div>
 
 <script>
     const formulas = {{ formulas | tojson }};

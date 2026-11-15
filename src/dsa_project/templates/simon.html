@@ -5,24 +5,21 @@
 {% endblock %}
 {% block content %}
 <section class="simon">
+  <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
   <div class="simon-hud">
     <p id="levelText">Level: 0</p>
     <p>High Score: <span id="highScore">0</span></p>
   </div>
 
   <div class="simon-grid">
-    <button class="simon-btn" data-number="1">1</button>
-    <button class="simon-btn" data-number="2">2</button>
-    <button class="simon-btn" data-number="3">3</button>
-    <button class="simon-btn" data-number="4">4</button>
-    <button class="simon-btn" data-number="5">5</button>
-    <button class="simon-btn" data-number="6">6</button>
-    <button class="simon-btn" data-number="7">7</button>
-    <button class="simon-btn" data-number="8">8</button>
-    <button class="simon-btn" data-number="9">9</button>
+      {% for number in range(1, 10) %}
+          <button type="button" class="simon-btn" data-number="{{ number }}">
+              {{ number }}
+          </button>
+      {% endfor %}
   </div>
 
-  <button id="startBtn" class="simon-start">Start</button>
+  <button type="button" id="startBtn" class="simon-start">Start</button>
 </section>
 
 <script src="{{ url_for('static', filename='javascript/simon.js') }}"></script>

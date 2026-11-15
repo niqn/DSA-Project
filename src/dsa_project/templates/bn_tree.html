@@ -8,7 +8,8 @@
 
 {% block content %}
 
-<main class="container">
+<div class="container">
+    <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
     <header class="page-header">
         <div>
             <h1>Binary Tree Visualizer</h1>
@@ -24,11 +25,11 @@
             <div class="input-group">
                 <input
                     type="text"
-                    id="root-value"
+                    id="root-value" aria-label="Root node value"
                     placeholder="Enter root value"
                     maxlength="30"
                 >
-                <button id="create-root-btn" class="primary-btn">
+                <button type="button" id="create-root-btn" class="primary-btn">
                     Create Root
                 </button>
             </div>
@@ -43,7 +44,7 @@
             <div class="input-group">
                 <input
                     type="text"
-                    id="node-value"
+                    id="node-value" aria-label="New node value"
                     placeholder="Enter node value"
                     maxlength="30"
                 >
@@ -53,15 +54,15 @@
                     <option value="right">Right child</option>
                 </select>
 
-                <button id="add-node-btn" class="primary-btn">
+                <button type="button" id="add-node-btn" class="primary-btn">
                     Add Child
                 </button>
 
-                <button id="delete-node-btn" class="danger-btn" disabled>
+                <button type="button" id="delete-node-btn" class="danger-btn" disabled>
                     Delete Node
                 </button>
 
-                <button id="reset-btn" class="secondary-btn">
+                <button type="button" id="reset-btn" class="secondary-btn">
                     Reset Tree
                 </button>
             </div>
@@ -99,7 +100,7 @@
                 <option value="postorder">Postorder</option>
             </select>
 
-            <button id="traverse-btn" class="primary-btn" disabled>
+            <button type="button" id="traverse-btn" class="primary-btn" disabled>
                 Visualize Traversal
             </button>
             <hr>
@@ -109,8 +110,8 @@
         </div>
     </section>
     </section>
-    <div id="message" class="message" aria-live="polite"></div>
-</main>
+    <div id="message" aria-live="polite" class="message" aria-live="polite"></div>
+</div>
 
 <script src="{{ url_for('static', filename='javascript/bn_tree.js') }}"></script>
 

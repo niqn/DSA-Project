@@ -5,8 +5,8 @@ block head %}
   href="{{ url_for('static', filename='css/news.css') }}"
 />
 {% endblock %} {% block content %}
-<main class="page">
-  <a href="{{ url_for('home') }}" class="back-link"> <i class="fa-solid fa-arrow-left"></i> Back to home</a>
+<div class="page">
+  <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
 
   <h1>Bacoor News Update</h1>
   <p>Stay updated with the latest news and updates from the city of Bacoor.</p>
@@ -62,7 +62,7 @@ block head %}
       {% endif %}
     </div>
   </div>
-</main>
+</div>
 
 <script src="{{ url_for('static', filename='javascript/news.js') }}"></script>
 {% endblock %}

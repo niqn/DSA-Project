@@ -77,10 +77,11 @@
 /* Delete button */
 .del {
     padding: 8px 14px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: #fff;
-    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-sm);
+    background: var(--danger-soft);
+    color: var(--danger-dark);
     font: inherit;
+    font-weight: 600;
     cursor: pointer;
 }

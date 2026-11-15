@@ -6,7 +6,8 @@ head %}
 />
 {% endblock %} {% block content %}
 
-<main class="weather-grid">
+<div class="weather-grid">
+  <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
   <!-- left side -->
   <div class="col col-left">
     <!-- choose location -->
@@ -17,7 +18,7 @@ head %}
         <option value="{{ loc }}">{{ loc }}</option>
         {% endfor %}
       </select>
-      <button id="btnLoc">Use my current location</button>
+      <button type="button" id="btnLoc">Use my current location</button>
     </section>
 
     <!-- if classes are suspended -->
@@ -93,7 +94,7 @@ head %}
     <p id="dsaNote" class="dsa-note"></p>
     <div id="readings"></div>
   </section>
-</main>
+</div>
 
 <script src="{{ url_for('static', filename='javascript/weather.js') }}"></script>
 {% endblock %}

@@ -60,7 +60,7 @@
     place-items: center;
     width: 46px;
     height: 46px;
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--blue-soft);
     color: var(--blue);
     font-size: 1.2rem;

@@ -1,74 +1,8 @@
-/* Header */
-.page-header {
-    margin: 8px 0 22px;
-}
-
-.page-header h1 {
-    margin: 0 0 4px;
-    color: var(--blue-dark);
-}
-
-.page-header p,
-.section-description {
-    color: var(--muted);
-}
-
-/* Visualizer */
-.visualizer-section {
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.section-header {
-    margin-bottom: 16px;
-}
-
-.section-header h2 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: var(--blue-dark);
-}
-
-.section-description {
-    margin: -8px 0 18px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-/* Settings */
-.array-settings,
-.target-settings,
-.speed-settings {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-
-.array-settings label,
-.target-settings label,
-.speed-settings label {
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
+/* Page-specific setting widths and value accents */
 .array-settings span,
-.speed-settings span {
-    color: var(--blue);
-}
+.speed-settings span { color: var(--blue); }
 
-.array-settings input[type="range"],
-.speed-settings input[type="range"] {
-    flex: 1;
-    min-width: 120px;
-    accent-color: var(--blue);
-    cursor: pointer;
-}
-
-.target-settings input {
-    width: 110px;
-}
+.target-settings input { width: 110px; }
 
 /* Primary buttons */
 .page button#generate-array,
@@ -215,22 +149,6 @@
     opacity: 0.5;
 }
 
-/* Status and playback controls */
-#status,
-#search-status {
-    margin: 14px 0;
-    color: var(--muted);
-    font-size: 0.9rem;
-}
-
-.controls {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 14px 0;
-}
-
 #step-counter,
 #search-step-counter {
     color: var(--muted);
@@ -239,7 +157,7 @@
 }
 
 
-/* number theiry */
+/* Number theory */
 
 .number-theory-layout {
     display: grid;

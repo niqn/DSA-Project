@@ -14,45 +14,6 @@
     color: var(--blue);
 }
 
-/* Category chips */
-.browse-layout {
-    display: block;
-}
-
-.choose-category {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 16px 0;
-}
-
-.chip {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: #fff;
-    color: var(--text);
-    text-decoration: none;
-    transition: border-color 0.2s ease;
-}
-
-.chip:hover {
-    border-color: var(--blue);
-}
-
-.chip.active {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-}
-
-.chip-check {
-    display: none;
-}
-
 /* News cards */
 .news-cards {
     display: grid;
@@ -80,43 +41,6 @@
     transform: translateY(-2px);
     border-color: var(--tag, var(--blue));
     box-shadow: 0 8px 20px rgba(30, 41, 59, 0.08);
-}
-
-/* Card header */
-.card-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.card-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--tag-soft, var(--blue-soft));
-    color: var(--tag, var(--blue));
-    font-size: 0.9rem;
-}
-
-.card-tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--tag, var(--blue));
-}
-
-.badge-new {
-    margin-left: auto;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: #16a34a;
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 700;
 }
 
 /* Card content */

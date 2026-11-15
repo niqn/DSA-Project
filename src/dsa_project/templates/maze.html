@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Maze Graph Visualizer{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/maze.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page maze-page">
+    <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
+    <header class="page-header">
+        <h1>Maze Graph Visualizer</h1>
+        <p>Explore graph generation and traversal algorithms step by step.</p>
+    </header>
+
+    <section class="visualizer-section">
+
+        <div class="section-header">
+            <h2>Graph Generation</h2>
+        </div>
+        <p class="section-description">
+            Generate a connected graph from a grid, then explore it using breadth-first
+            search or depth-first search.
+        </p>
+
+        <div class="maze-settings">
+            <label for="maze-rows">Rows</label>
+            <input type="number" id="maze-rows" min="5" max="30" value="15">
+
+            <label for="maze-cols">Columns</label>
+            <input type="number" id="maze-cols" min="5" max="30" value="15">
+
+            <button type="button" id="create-maze">Create Empty Graph</button>
+            <button type="button" id="generate-maze">Generate Maze Graph</button>
+        </div>
+
+        <div class="maze-traversal-settings">
+            <label for="maze-algorithm">Traversal Algorithm:</label>
+            <select id="maze-algorithm">
+                <option value="bfs">Breadth-First Search (BFS)</option>
+                <option value="dfs">Depth-First Search (DFS)</option>
+            </select>
+            <button type="button" id="solve-maze" class="primary-btn">Run Traversal</button>
+        </div>
+
+        <div class="section-header maze-visualization-heading">
+            <h2>Visualization</h2>
+            <span id="maze-step-counter">Step 0 / 0</span>
+        </div>
+
+        <div class="maze-visualization">
+            <div id="maze-grid" class="maze-grid"></div>
+        </div>
+
+        <div class="maze-legend">
+            <span><i class="legend-dot maze-node"></i>Vertex</span>
+            <span><i class="legend-dot maze-visited"></i>Visited</span>
+            <span><i class="legend-dot maze-current"></i>Current</span>
+            <span><i class="legend-dot maze-path"></i>Path</span>
+            <span><i class="legend-dot maze-start"></i>Start</span>
+            <span><i class="legend-dot maze-end"></i>End</span>
+        </div>
+
+        <p id="maze-status" aria-live="polite" class="maze-status">Ready</p>
+
+        <div class="controls maze-playback">
+            <button type="button" id="maze-prev">Previous</button>
+            <button type="button" id="maze-play">Play</button>
+            <button type="button" id="maze-next">Next</button>
+            <button type="button" id="maze-reset">Reset</button>
+        </div>
+
+        <div class="speed-settings">
+            <label for="maze-speed">
+                Animation Speed: <span id="maze-speed-value">50</span> ms
+            </label>
+            <input type="range" id="maze-speed" min="10" max="500" value="50" step="10">
+        </div>
+
+    </section>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/maze.js') }}"></script>
+{% endblock %}

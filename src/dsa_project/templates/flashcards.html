@@ -5,13 +5,14 @@
 {% endblock %}
 {% block content %}
 <section class="flash">
+  <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
   <h1>Flashcards</h1>
   <p>Make your own cards. Click a card to flip it.</p>
 
   <form method="post" action="{{ url_for('flashcards_add') }}" class="flash-form">
-    <input type="text" name="front" placeholder="Front (question)" maxlength="60" required />
-    <input type="text" name="back" placeholder="Back (answer)" maxlength="60" required />
-    <select name="where">
+    <input type="text" name="front" aria-label="Front (question)" placeholder="Front (question)" maxlength="60" required />
+    <input type="text" name="back" aria-label="Back (answer)" placeholder="Back (answer)" maxlength="60" required />
+    <select name="where" aria-label="Where to insert the card">
       <option value="end">Add to the end</option>
       <option value="after">Insert after this card</option>
     </select>

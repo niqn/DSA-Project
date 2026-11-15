@@ -106,7 +106,7 @@
     gap: 2px 12px;
     padding: 12px 14px;
     background: var(--blue-soft);
-    border-radius: 12px;
+    border-radius: var(--radius);
 }
 
 .study-list li strong::before {

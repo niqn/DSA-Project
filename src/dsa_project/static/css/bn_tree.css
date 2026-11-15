@@ -1,23 +1,11 @@
 /* Binary tree page — aligned with the site's shared styles */
 
-/* Header */
+/* Binary-tree-specific header layout */
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    margin: 8px 0 22px;
-}
-
-.page-header h1 {
-    margin: 0 0 4px;
-    color: var(--blue-dark);
-}
-
-.page-header p,
-.description {
-    color: var(--muted);
-    font-size: 0.9rem;
 }
 
 /* Shared panel headings */
@@ -28,22 +16,11 @@
 }
 
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
     margin-bottom: 16px;
 }
 
 .section-header h2 {
-    margin: 0;
     font-size: 1.05rem;
-    color: var(--blue-dark);
-}
-
-.section-header span {
-    color: var(--muted);
-    font-size: 0.82rem;
 }
 
 .tree-full-container {
@@ -97,61 +74,6 @@
     flex: 0 1 180px;
     width: 100%;
     padding: 8px 12px;
-}
-
-/* Base buttons */
-.container button {
-    padding: 8px 15px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--text);
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-
-.container button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Primary buttons */
-.container button.primary-btn {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-}
-
-.container button.primary-btn:hover:not(:disabled) {
-    background: var(--blue-dark);
-    border-color: var(--blue-dark);
-}
-
-/* Secondary buttons */
-.container button.secondary-btn:hover:not(:disabled) {
-    background: var(--blue-soft);
-    border-color: var(--blue-soft);
-    color: var(--blue-dark);
-}
-
-/* Danger buttons */
-.container button.danger-btn {
-    background: #fee2e2;
-    border-color: #fecaca;
-    color: #dc2626;
-}
-
-.container button.danger-btn:hover:not(:disabled) {
-    background: #fecaca;
-    border-color: #fca5a5;
-}
-
-/* Keyboard focus */
-.container button:focus-visible {
-    outline: 2px solid var(--blue);
-    outline-offset: 2px;
 }
 
 /* Tree visualization */
@@ -348,4 +270,3 @@
         align-items: flex-start;
     }
 }
-
