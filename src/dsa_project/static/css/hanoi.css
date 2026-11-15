@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-  color: var(--green-deep);
+  color: var(--blue-dark);
 }
 
 .hanoi-status {
@@ -34,12 +34,12 @@
   padding: 10px;
   border: 0;
   border-radius: 14px;
-  background: var(--green-soft);
+  background: var(--blue-soft);
   font: inherit;
   cursor: pointer;
 }
 
-.hanoi-tower:hover { background: #d3efe0; }
+.hanoi-tower:hover { background: var(--line); }
 
 .hanoi-pole {
   position: relative;
@@ -60,26 +60,26 @@
   width: 7px;
   transform: translateX(-50%);
   border-radius: 4px;
-  background: var(--green-dark);
+  background: var(--blue-dark);
 }
 
 .disk {
   position: relative;
   height: 22px;
   border-radius: 11px;
-  border: 2px solid var(--green-deep);
-  background: var(--green);
+  border: 2px solid var(--blue-dark);
+  background: var(--blue);
 }
 
 .disk.picked {
   transform: translateY(-8px);
-  outline: 3px solid var(--green-deep);
+  outline: 3px solid var(--blue-deep);
 }
 
 .hanoi-base {
   padding: 6px;
   border-radius: 8px;
-  background: var(--green-deep);
+  background: var(--blue-dark);
   color: #fff;
   font-weight: 700;
 }
@@ -91,7 +91,7 @@
   gap: 12px;
   margin-top: 20px;
   font-weight: 700;
-  color: var(--green-deep);
+  color: var(--blue-dark);
 }
 
 .hanoi-count {
@@ -101,7 +101,7 @@
   background: #fff;
   font: inherit;
   font-weight: 700;
-  color: var(--green-deep);
+  color: var(--blue-dark);
   cursor: pointer;
 }
 
@@ -109,7 +109,7 @@
   padding: 10px 18px;
   border: 0;
   border-radius: 12px;
-  background: var(--green);
+  background: var(--blue);
   color: #fff;
   font: inherit;
   font-weight: 700;
@@ -117,5 +117,5 @@
 }
 
 .hanoi-reset:hover {
-    background: var(--green-dark);
+    background: var(--blue-dark);
 }
