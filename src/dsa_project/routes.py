@@ -117,3 +117,7 @@ def maze_maker():
 def simon():
     return render_template('simon.html')
 
+@app.route('/hanoi')
+def hanoi():
+    return render_template('hanoi.html')
+
