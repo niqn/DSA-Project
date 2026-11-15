@@ -1,42 +1,86 @@
-.flash {
-  --blue: #2563eb;
-  --blue-dark: #1e40af;
-  --blue-soft: #dbeafe;
-  --line: #e2e8f0;
-  --muted: #64748b;
+/* Flashcards page */
 
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 16px;
+.muted {
+    color: var(--muted);
 }
-.flash h1 { color: var(--blue-dark); }
-.muted { color: var(--muted); }
 
-.flash-form { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
-.flash-form input, .flash-form select { padding: 10px; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
-.flash-form input { flex: 1; min-width: 160px; }
-.flash-form button { padding: 10px 18px; border: 0; border-radius: 10px; background: var(--blue); color: #fff; font: inherit; cursor: pointer; }
+/* Flashcard form */
+.flash-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 24px;
+}
 
+.flash-form input {
+    flex: 1;
+    min-width: 160px;
+}
+
+/* Flashcard */
 .flash-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 200px;
-  padding: 24px;
-  text-align: center;
-  background: var(--blue-soft);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background .2s ease, color .2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 200px;
+    padding: 24px;
+    text-align: center;
+    background: var(--blue-soft);
+    border-radius: 20px;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
-.flash-card p { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--blue-dark); }
-.flash-card small { color: var(--muted); }
-.flash-card.back { background: var(--blue); }
-.flash-card.back p, .flash-card.back small { color: #fff; }
 
-.flash-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
-.flash-nav a { color: var(--blue); text-decoration: none; font-weight: 600; }
-.flash-nav form { margin: 0; }
-.del { padding: 8px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: #b91c1c; font: inherit; cursor: pointer; }
+.flash-card p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+}
+
+.flash-card small {
+    color: var(--muted);
+}
+
+/* Flashcard back */
+.flash-card.back {
+    background: var(--blue);
+}
+
+.flash-card.back p,
+.flash-card.back small {
+    color: #fff;
+}
+
+/* Navigation */
+.flash-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.flash-nav a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.flash-nav form {
+    margin: 0;
+}
+
+/* Delete button */
+.del {
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: #b91c1c;
+    font: inherit;
+    cursor: pointer;
+}

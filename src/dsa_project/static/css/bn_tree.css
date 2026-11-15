@@ -1,0 +1,351 @@
+/* Binary tree page — aligned with the site's shared styles */
+
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 8px 0 22px;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    color: var(--blue-dark);
+}
+
+.page-header p,
+.description {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Shared panel headings */
+
+.container {
+    width: min(100% - 32px, 1200px);
+    margin-inline: auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--blue-dark);
+}
+
+.section-header span {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.tree-full-container {
+    margin-bottom: 20px;
+}
+
+/* Unified controls */
+.tree-controls {
+    margin-bottom: 20px;
+}
+
+.tree-controls[hidden],
+#node-controls[hidden],
+#create-root-controls[hidden] {
+    display: none !important;
+}
+
+.tree-controls .description {
+    margin: 0 0 14px;
+}
+
+.selected-info {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.selected-info strong {
+    color: var(--blue-dark);
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.input-group button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.input-group input {
+    flex: 0 1 280px;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 12px;
+}
+
+.input-group select {
+    flex: 0 1 180px;
+    width: 100%;
+    padding: 8px 12px;
+}
+
+/* Base buttons */
+.container button {
+    padding: 8px 15px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.container button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Primary buttons */
+.container button.primary-btn {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+}
+
+.container button.primary-btn:hover:not(:disabled) {
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+}
+
+/* Secondary buttons */
+.container button.secondary-btn:hover:not(:disabled) {
+    background: var(--blue-soft);
+    border-color: var(--blue-soft);
+    color: var(--blue-dark);
+}
+
+/* Danger buttons */
+.container button.danger-btn {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.container button.danger-btn:hover:not(:disabled) {
+    background: #fecaca;
+    border-color: #fca5a5;
+}
+
+/* Keyboard focus */
+.container button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* Tree visualization */
+.tree-panel {
+    margin-bottom: 20px;
+}
+
+.tree-container {
+    width: 100%;
+    min-height: 350px;
+    max-height: 650px;
+    overflow: auto;
+    background: #f8fafc;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+#tree-svg {
+    display: block;
+    width: 100%;
+    min-width: 500px;
+    min-height: 350px;
+}
+
+.edge {
+    stroke: #94a3b8;
+    stroke-width: 2;
+}
+
+.node-circle {
+    fill: var(--blue);
+    stroke: #93c5fd;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+.node-circle:hover {
+    fill: var(--blue-dark);
+}
+
+.node-circle.selected {
+    fill: #f59e0b;
+    stroke: #fcd34d;
+    stroke-width: 3;
+}
+
+.node-circle.active {
+    fill: #16a34a;
+    stroke: #86efac;
+    stroke-width: 3;
+}
+
+.node-text {
+    fill: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.node-id {
+    fill: var(--muted);
+    font-size: 10px;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.empty-text {
+    fill: var(--muted);
+    font-size: 16px;
+    text-anchor: middle;
+}
+
+/* Tree legend */
+.tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 16px;
+}
+
+.tree-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.normal {
+    background: var(--blue);
+}
+
+.legend-dot.selected {
+    background: #f59e0b;
+}
+
+.legend-dot.active {
+    background: #16a34a;
+}
+
+/* Traversal controls and output share one panel */
+.traversal-panel {
+    margin-bottom: 20px;
+}
+
+.traversal-panel > .description {
+    margin: 0 0 14px;
+}
+
+.traversal-controls {
+    margin-bottom: 22px;
+}
+
+.traversal-output {
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.traversal-output h3 {
+    margin: 0 0 12px;
+    color: var(--blue-dark);
+    font-size: 0.95rem;
+}
+
+.traversal-result {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 45px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.result-node {
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f8fafc;
+    color: var(--text);
+    font-weight: bold;
+}
+
+.result-node.current {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
+}
+
+/* Messages */
+.message {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 10;
+    padding: 12px 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 8px 24px rgba(30, 41, 59, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .container {
+        width: min(100% - 48px, 1200px);
+    }
+}
+
+@media (max-width: 700px) {
+    .node-control-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+    }
+}
+

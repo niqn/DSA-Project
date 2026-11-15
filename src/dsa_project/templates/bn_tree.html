@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Binary Tree Visualizer{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bn_tree.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="container">
+    <header class="page-header">
+        <div>
+            <h1>Binary Tree Visualizer</h1>
+            <p>Build and explore a binary tree interactively.</p>
+        </div>
+    </header>
+    <section class="panel tree-full-container">
+    <!-- TREE CONTROLS: content changes depending on whether a root exists -->
+    <section class="tree-controls">
+        <div id="create-root-controls">
+            <div class="section-header">
+            </div>
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="root-value"
+                    placeholder="Enter root value"
+                    maxlength="30"
+                >
+                <button id="create-root-btn" class="primary-btn">
+                    Create Root
+                </button>
+            </div>
+        </div>
+
+        <div id="node-controls" hidden>
+            <div class="selected-info">
+                Selected Node:
+                <strong id="selected-node">None</strong>
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="node-value"
+                    placeholder="Enter node value"
+                    maxlength="30"
+                >
+
+                <select id="node-side" aria-label="Child position">
+                    <option value="left">Left child</option>
+                    <option value="right">Right child</option>
+                </select>
+
+                <button id="add-node-btn" class="primary-btn">
+                    Add Child
+                </button>
+
+                <button id="delete-node-btn" class="danger-btn" disabled>
+                    Delete Node
+                </button>
+
+                <button id="reset-btn" class="secondary-btn">
+                    Reset Tree
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TREE VISUALIZATION -->
+    <section class="panel tree-panel">
+        <div class="section-header">
+            <h2>Visualization</h2>
+            <span id="node-count">0 Nodes</span>
+        </div>
+
+        <div class="tree-container">
+            <svg id="tree-svg"></svg>
+        </div>
+
+        <div class="tree-legend">
+            <span><i class="legend-dot normal"></i>Node</span>
+            <span><i class="legend-dot selected"></i>Selected</span>
+            <span><i class="legend-dot active"></i>Traversal</span>
+        </div>
+    </section>
+
+    <!-- TRAVERSAL CONTROLS AND RESULT -->
+    <section class="traversal-panel">
+        <div class="section-header">
+            <h2>Tree Traversal</h2>
+            <span id="traversal-status">Ready</span>
+        </div>
+        <div class="input-group traversal-controls">
+            <select id="traversal-method" aria-label="Traversal method">
+                <option value="inorder">Inorder</option>
+                <option value="preorder">Preorder</option>
+                <option value="postorder">Postorder</option>
+            </select>
+
+            <button id="traverse-btn" class="primary-btn" disabled>
+                Visualize Traversal
+            </button>
+            <hr>
+            <div id="traversal-result" class="traversal-result">
+                No traversal performed yet.
+            </div>
+        </div>
+    </section>
+    </section>
+    <div id="message" class="message" aria-live="polite"></div>
+</main>
+
+<script src="{{ url_for('static', filename='javascript/bn_tree.js') }}"></script>
+
+{% endblock %}

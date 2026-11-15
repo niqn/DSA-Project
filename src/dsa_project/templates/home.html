@@ -1,24 +1,11 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
-<section class="big-cards">
-  <a href="{{ url_for('news') }}" class="card card-big">
-    <i class="fa-solid fa-newspaper"></i>
-    <h2>News</h2>
-    <p>Stay updated with the latest news and updates.</p>
-  </a>
 
-  <a href="{{ url_for('weather') }}" class="card card-big">
-    <i class="fa-solid fa-cloud-sun"></i>
-    <h2>Weather</h2>
-    <p>Check the current weather and forecasts.</p>
-  </a>
+{% extends "base.html" %}
 
-  <a href="{{ url_for('simon') }}" class="card card-big">
-    <i class="fa-solid fa-phone"></i>
-    <h2>Simon Game</h2>
-    <p>Play the classic Simon memory game.</p>
-  </a>
+{% block title %}Home{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
   <a href="{{ url_for('hanoi') }}" class="card card-big">
     <i class="fa-solid fa-layer-group"></i>
     <h2>Towers of Hanoi</h2>
@@ -31,10 +18,93 @@
     <p>Manage your study sessions and tasks.</p>
   </a>
 
-  <a href="{{ url_for('flashcards') }}" class="card card-big">
-    <i class="fa-solid fa-book"></i>
-    <h2>Study Session</h2>
-    <p>Manage your study sessions and tasks.</p>
-  </a>
+{% block content %}
+<section class="home-page">
+
+    <header class="home-header">
+        <h1>Welcome to Multitool</h1>
+        <p>Explore your tools, utilities, and learning resources.</p>
+    </header>
+
+    <section class="big-cards">
+
+        <a href="{{ url_for('news') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <div class="card-content">
+                <h2>News</h2>
+                <p>Stay updated with the latest news and current events.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('weather') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-cloud-sun"></i>
+            </div>
+            <div class="card-content">
+                <h2>Weather</h2>
+                <p>Check current weather conditions and forecasts.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('simon') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <div class="card-content">
+                <h2>Simon Game</h2>
+                <p>Test your memory with this classic sequence game.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('study') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="card-content">
+                <h2>Study Session</h2>
+                <p>Organize your study sessions, tasks, and progress.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('flashcards') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div class="card-content">
+                <h2>Flashcards</h2>
+                <p>Create and review flashcards to reinforce what you've learned.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('binary_tree') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-sitemap"></i>
+            </div>
+            <div class="card-content">
+                <h2>Binary Tree</h2>
+                <p>Build, visualize, and explore binary tree structures.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+        <a href="{{ url_for('algorithms') }}" class="card card-big">
+            <div class="card-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <div class="card-content">
+                <h2>Algorithms</h2>
+                <p>Explore sorting and searching algorithms through interactive visualizations.</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square card-arrow"></i>
+        </a>
+
+    </section>
 </section>
 {% endblock %}
