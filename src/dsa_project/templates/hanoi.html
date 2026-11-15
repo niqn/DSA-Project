@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Towers of Hanoi{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hanoi.css') }}" />
+{% endblock %}
+{% block content %}
+<section class="hanoi">
+  <div class="hanoi-hud">
+    <p id="moveText">Moves: 0</p>
+    <p>Minimum: <span id="minText">7</span></p>
+  </div>
+
+  <p id="statusText" class="hanoi-status"></p>
+
+  <div class="hanoi-board">
+    <button class="hanoi-tower" id="towerA">
+      <div class="hanoi-pole"></div>
+      <div class="hanoi-base">A</div>
+    </button>
+
+    <button class="hanoi-tower" id="towerB">
+      <div class="hanoi-pole"></div>
+      <div class="hanoi-base">B</div>
+    </button>
+
+    <button class="hanoi-tower" id="towerC">
+      <div class="hanoi-pole"></div>
+      <div class="hanoi-base">C</div>
+    </button>
+  </div>
+
+  <div class="hanoi-controls">
+    <label>
+      Disks:
+      <select id="diskCount" class="hanoi-count">
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </label>
+    <button id="resetBtn" class="hanoi-reset">Reset</button>
+  </div>
+</section>
+
+<script src="{{ url_for('static', filename='javascript/hanoi.js') }}"></script>
+{% endblock %}

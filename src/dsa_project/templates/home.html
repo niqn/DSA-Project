@@ -6,6 +6,17 @@
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
+  <a href="{{ url_for('hanoi') }}" class="card card-big">
+    <i class="fa-solid fa-layer-group"></i>
+    <h2>Towers of Hanoi</h2>
+    <p>Move all the disks from tower A to tower C.</p>
+  </a>
+
+  <a href="{{ url_for('study') }}" class="card card-big">
+    <i class="fa-solid fa-book"></i>
+    <h2>Study Session</h2>
+    <p>Manage your study sessions and tasks.</p>
+  </a>
 
 {% block content %}
 <section class="home-page">
