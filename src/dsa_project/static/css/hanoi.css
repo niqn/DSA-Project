@@ -73,7 +73,8 @@
 
 .disk.picked {
   transform: translateY(-8px);
-  outline: 3px solid var(--blue-deep);
+  outline: 3px solid var(--blue-dark);
+  transition: transform 0.15s ease;
 }
 
 .hanoi-base {
@@ -118,4 +119,29 @@
 
 .hanoi-reset:hover {
     background: var(--blue-dark);
+}
+
+.hanoi-tower:focus-visible,
+.hanoi-reset:focus-visible {
+    outline: 3px solid var(--blue-dark);
+    outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+    .hanoi {
+        padding: 16px;
+        margin: 16px 10px;
+    }
+
+    .hanoi-board {
+        gap: 6px;
+    }
+
+    .hanoi-tower {
+        padding: 6px;
+    }
+
+    .hanoi-controls {
+        flex-wrap: wrap;
+    }
 }

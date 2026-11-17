@@ -1,46 +1,97 @@
+
 {% extends "base.html" %}
+
 {% block title %}Towers of Hanoi{% endblock %}
+
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/hanoi.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hanoi.css') }}">
 {% endblock %}
+
 {% block content %}
+
 <section class="hanoi">
-  <div class="hanoi-hud">
-    <p id="moveText">Moves: 0</p>
-    <p>Minimum: <span id="minText">7</span></p>
-  </div>
 
-  <p id="statusText" class="hanoi-status"></p>
+    <!-- Navigation -->
+    <a href="{{ url_for('home') }}" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to home
+    </a>
 
-  <div class="hanoi-board">
-    <button class="hanoi-tower" id="towerA">
-      <div class="hanoi-pole"></div>
-      <div class="hanoi-base">A</div>
-    </button>
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Towers of Hanoi</h1>
+        <p>Explore the classic Tower of Hanoi puzzle.</p>
+    </header>
 
-    <button class="hanoi-tower" id="towerB">
-      <div class="hanoi-pole"></div>
-      <div class="hanoi-base">B</div>
-    </button>
+    <!-- Game Information -->
+    <div class="hanoi-hud">
+        <p id="moveText">Moves: 0</p>
+        <p>Minimum: <span id="minText">7</span></p>
+    </div>
 
-    <button class="hanoi-tower" id="towerC">
-      <div class="hanoi-pole"></div>
-      <div class="hanoi-base">C</div>
-    </button>
-  </div>
+    <!-- Game Status -->
+    <p id="statusText" class="hanoi-status" aria-live="polite">
+        Select a tower to move a disk.
+    </p>
 
-  <div class="hanoi-controls">
-    <label>
-      Disks:
-      <select id="diskCount" class="hanoi-count">
-        <option value="3" selected>3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </label>
-    <button id="resetBtn" class="hanoi-reset">Reset</button>
-  </div>
+    <!-- Game Board -->
+    <div class="hanoi-board">
+
+        <div
+            class="hanoi-tower"
+            id="towerA"
+            role="button"
+            tabindex="0"
+            aria-label="Tower A"
+        >
+            <div class="hanoi-pole"></div>
+            <div class="hanoi-base">A</div>
+        </div>
+
+        <div
+            class="hanoi-tower"
+            id="towerB"
+            role="button"
+            tabindex="0"
+            aria-label="Tower B"
+        >
+            <div class="hanoi-pole"></div>
+            <div class="hanoi-base">B</div>
+        </div>
+
+        <div
+            class="hanoi-tower"
+            id="towerC"
+            role="button"
+            tabindex="0"
+            aria-label="Tower C"
+        >
+            <div class="hanoi-pole"></div>
+            <div class="hanoi-base">C</div>
+        </div>
+
+    </div>
+
+    <!-- Game Controls -->
+    <div class="hanoi-controls">
+
+        <label for="diskCount">
+            Disks:
+            <select id="diskCount" class="hanoi-count">
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </label>
+
+        <button type="button" id="resetBtn" class="hanoi-reset">
+            Reset
+        </button>
+
+    </div>
+
 </section>
 
 <script src="{{ url_for('static', filename='javascript/hanoi.js') }}"></script>
+
 {% endblock %}

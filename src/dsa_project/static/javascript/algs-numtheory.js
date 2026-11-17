@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const calculateButton = document.getElementById("calculate-formula");
     const resultContainer = document.getElementById("formula-result");
 
-    // render input fields(forms)
+    // Render input fields
     function renderFormula() {
         const selected = formulaSelect.value;
         const formula = formulas[selected];
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultContainer.textContent = "Enter your values and calculate to see the result.";
     }
 
-    //right side result display 
+    // Display calculation results
     function displayResult(result) {
         resultContainer.replaceChildren();
 
@@ -80,13 +80,23 @@ document.addEventListener("DOMContentLoaded", () => {
             label.textContent = key.replaceAll("_", " ");
 
             const output = document.createElement("strong");
-            output.textContent = value;
+
+            if (Array.isArray(value)) {
+                output.textContent = value.length ? value.join(", ") : "None";
+            } else if (typeof value === "boolean") {
+                output.textContent = value ? "Yes" : "No";
+            } else {
+                output.textContent = value;
+            }
+
+            if (key === "solutions") {
+                label.textContent = "All solutions (mod m)";
+            }
 
             row.append(label, output);
             resultContainer.appendChild(row);
         });
     }
-
 
     // =================================
     // CALCULATE
@@ -103,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const value = input.value.trim();
 
             if (value === "" || !Number.isSafeInteger(Number(value))) {
-                resultContainer.textContent = `Please enter a valid integer for ${field.label}.`;
+                resultContainer.textContent =
+                    `Please enter a valid integer for ${field.label}.`;
                 input.focus();
                 return;
             }
@@ -131,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 throw new Error(data.error || "Something went wrong.");
             }
+
             displayResult(data.result);
 
         } catch (error) {
@@ -140,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
             calculateButton.textContent = "Calculate";
         }
     }
-
 
     formulaSelect.addEventListener("change", renderFormula);
     calculateButton.addEventListener("click", calculate);

@@ -7,9 +7,7 @@ from . import app
 from .services.algorithms import bubble_sort, insertion_sort, linear_search, binary_search, calculate_number_theory, NUMBER_THEORY_METADATA
 from .services.binary_tree import BinaryTree
 from .services.maze import Maze
-from .services.maze_algorithms import (
-    generate_maze, breadth_first_search, depth_first_search
-)
+from .services.maze_algorithms import generate_maze, breadth_first_search, depth_first_search
 
 @app.route('/')
 def home():
@@ -40,7 +38,7 @@ def study():
     items, total = studyDSA.with_schedule(queue.to_list())
     return render_template("study.html", now=items[0] if items else None, upcoming=items[1:], total=total)
 
-@app.route("/study/add", methods=["POST"])
+@app.post("/study/add")
 def study_add():
     subject = request.form.get("subject", "").strip()[:40]
     try:
@@ -55,7 +53,7 @@ def study_add():
         session["study"] = queue.to_list()
     return redirect(url_for("study"))
 
-@app.route("/study/next", methods=["POST"])
+@app.post("/study/next")
 def study_next():
     queue = studyDSA.from_list(session.get("study", []))
     queue.dequeue()                                 
@@ -69,7 +67,7 @@ def flashcards():
     i = min(session.get("card_i", 0), max(len(cards) - 1, 0))
     return render_template("flashcards.html", card=cards[i] if cards else None, i=i, total=len(cards))
 
-@app.route("/flashcards/add", methods=["POST"])
+@app.post("/flashcards/add")
 def flashcards_add():
     front = request.form.get("front", "").strip()[:60]
     back = request.form.get("back", "").strip()[:60]
@@ -91,7 +89,7 @@ def flashcards_move(direction):
     session["card_i"] = flashDSA.step(deck, session.get("card_i", 0), direction)
     return redirect(url_for("flashcards"))
 
-@app.route("/flashcards/delete", methods=["POST"])
+@app.post("/flashcards/delete")
 def flashcards_delete():
     deck = flashDSA.from_list(session.get("cards", []))
     i = session.get("card_i", 0)
@@ -102,12 +100,12 @@ def flashcards_delete():
 
 
 
-@app.route('/algorithms', methods=['GET'])
+@app.get('/algorithms')
 def algorithms():
     return render_template('algorithms.html', formulas=NUMBER_THEORY_METADATA)
 
 
-@app.route('/algorithms/steps', methods=['POST'])
+@app.post('/algorithms/steps')
 def algorithm_steps():
     data = request.get_json()
 
@@ -167,7 +165,7 @@ def algorithm_steps():
         "steps": steps
     })
 
-@app.route("/algorithms/number-theory", methods=["POST"])
+@app.post("/algorithms/number-theory")
 def number_theory():
     data = request.get_json(silent=True) or {}
 
@@ -219,7 +217,7 @@ def save_binary_tree(tree):
     session["binary_tree"] = tree.to_state()
 
 # GET TREE
-@app.route('/binary-tree/data', methods=['GET'])
+@app.get('/binary-tree/data')
 def binary_tree_data():
     tree = get_binary_tree()
 
@@ -229,7 +227,7 @@ def binary_tree_data():
 
 
 # CREATE ROOT
-@app.route('/binary-tree/create', methods=['POST'])
+@app.post('/binary-tree/create')
 def binary_tree_create():
     data = request.get_json(silent=True) or {}
     value = data.get("data")
@@ -252,7 +250,7 @@ def binary_tree_create():
 
 
 # ADD NODE
-@app.route('/binary-tree/add', methods=['POST'])
+@app.post('/binary-tree/add')
 def binary_tree_add():
     data = request.get_json(silent=True) or {}
 
@@ -281,7 +279,7 @@ def binary_tree_add():
 
 
 # DELETE NODE
-@app.route('/binary-tree/delete', methods=['POST'])
+@app.post('/binary-tree/delete')
 def binary_tree_delete():
     data = request.get_json(silent=True) or {}
     node_id = data.get("node_id")
@@ -304,7 +302,7 @@ def binary_tree_delete():
 
 
 # TRAVERSAL
-@app.route('/binary-tree/traverse', methods=['POST'])
+@app.post('/binary-tree/traverse')
 def binary_tree_traverse():
     data = request.get_json(silent=True) or {}
     method = data.get("method", "inorder")
@@ -324,18 +322,13 @@ def binary_tree_traverse():
         "method": method
     })
 
-
-@app.route('/graph')
-def graph_maker():
-    return render_template('graph.html')
-
 @app.route('/maze')
 def maze_maker():
     return render_template('maze.html')
 
 
 # CREATE AN EMPTY GRAPH GRID
-@app.route('/maze/data', methods=['GET'])
+@app.get('/maze/data')
 def maze_data():
     try:
         rows = int(request.args.get("rows", 15))
@@ -351,7 +344,7 @@ def maze_data():
 
 
 # GENERATE A GRAPH-BASED MAZE
-@app.route('/maze/generate', methods=['POST'])
+@app.post('/maze/generate')
 def maze_generate():
     data = request.get_json(silent=True) or {}
     rows = data.get("rows", 15)
@@ -374,7 +367,7 @@ def maze_generate():
 
 
 # TRAVERSE THE GENERATED GRAPH
-@app.route('/maze/solve', methods=['POST'])
+@app.post('/maze/solve')
 def maze_solve():
     data = request.get_json(silent=True) or {}
     algorithm = data.get("algorithm")

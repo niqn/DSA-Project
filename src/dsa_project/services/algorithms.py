@@ -152,6 +152,54 @@ def binomial_term(n: int, k: int, a: int, b: int) -> dict:
         "term": f"{coefficient} * ({a})^{k} * ({b})^{n-k}"
     }
 
+def linear_congruence(a: int, b: int, m: int) -> dict:
+    if m <= 0:
+        raise ValueError("The modulus must be a positive integer.")
+
+    divisor = math.gcd(a, m)
+
+    if b % divisor != 0:
+        return {
+            "equation": f"{a}x ≡ {b} (mod {m})",
+            "message": (
+                f"No solution exists because gcd({a}, {m}) = {divisor}, "
+                f"and {divisor} does not divide {b}."
+            ),
+            "gcd": divisor,
+            "condition": f"{divisor} does not divide {b}",
+            "has_solution": False,
+            "solutions": []
+        }
+
+    reduced_a = a // divisor
+    reduced_b = b // divisor
+    reduced_m = m // divisor
+
+    if reduced_m == 1:
+        base_solution = 0
+        inverse = None
+    else:
+        inverse = pow(reduced_a % reduced_m, -1, reduced_m)
+        base_solution = (inverse * reduced_b) % reduced_m
+
+    solutions = sorted(
+        (base_solution + k * reduced_m) % m
+        for k in range(divisor)
+    )
+
+    return {
+        "equation": f"{a}x ≡ {b} (mod {m})",
+        "message": f"There are {divisor} distinct solution(s) modulo {m}.",
+        "gcd": divisor,
+        "condition": f"{divisor} divides {b}",
+        "has_solution": True,
+        "reduced_equation": f"{reduced_a}x ≡ {reduced_b} (mod {reduced_m})",
+        "inverse": inverse if inverse is not None else "Not needed (reduced modulus is 1)",
+        "base_solution": base_solution,
+        "solution_count": len(solutions),
+        "solutions": solutions
+    }
+
 
 # formula
 
@@ -183,7 +231,11 @@ NUMBER_THEORY_FORMULAS = {
     "binomial_term": {
         "function": binomial_term,
         "fields": ["n", "k", "a", "b"]
-    }
+    }, 
+    "linear_congruence": {
+        "function": linear_congruence,
+        "fields": ["a", "b", "m"]
+    }, 
 }
 
 NUMBER_THEORY_METADATA = {
@@ -250,7 +302,17 @@ NUMBER_THEORY_METADATA = {
             {"id": "a", "label": "Coefficient of x (a)", "default": 2},
             {"id": "b", "label": "Constant (b)", "default": -3}
         ]
-    }
+    }, 
+
+    "linear_congruence": {
+        "name": "Linear Congruence",
+        "description": "Solve ax ≡ b (mod m). A solution exists exactly when gcd(a, m) divides b. The calculator returns every distinct solution modulo m.",
+        "fields": [
+            {"id": "a", "label": "Coefficient (a)", "default": 6},
+            {"id": "b", "label": "Right-hand Side (b)", "default": 8},
+            {"id": "m", "label": "Modulus (m)", "default": 14}
+        ]
+    }, 
 }
 
 #export function

@@ -27,7 +27,101 @@
       </a>
     </header>
 
-    <main>{% block content %}{% endblock %}</main>
+    <section class="all">
+      <section class="sidebar">
+        <a href="{{ url_for('home') }}" class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <h2>Tools</h2>
+        </a>
+        <a href="{{ url_for('news') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>News</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('weather') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-cloud-sun"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Weather</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('simon') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Simon Game</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('study') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Study Session</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('flashcards') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Flashcards</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('binary_tree') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-sitemap"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Binary Tree</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('algorithms') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Algorithms</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('maze_maker') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-route"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Maze Graph</h2>
+            </div>
+        </a>
+
+        <a href="{{ url_for('hanoi') }}" class="sidebar-select">
+            <div class="sidebar-icon">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+            <div class="sidebar-content">
+                <h2>Tower of Hanoi</h2>
+            </div>
+        </a>
+      </section>
+      <main>
+        <a href="{{ url_for('home') }}" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
+        {% block content %}{% endblock %}
+      </main>
+    </section>
+    
 
     <!-- Footer -->
     <footer class="footer">

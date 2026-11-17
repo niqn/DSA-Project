@@ -1,10 +1,5 @@
 /* News page */
 
-.back-link {
-    color: var(--blue);
-    text-decoration: none;
-}
-
 .clock {
     color: var(--muted);
     margin: 0;

@@ -75,7 +75,7 @@
 }
 
 /* Delete button */
-.del {
+.flash .del {
     padding: 8px 14px;
     border: 1px solid #fecaca;
     border-radius: var(--radius-sm);
