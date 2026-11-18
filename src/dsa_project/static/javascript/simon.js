@@ -52,9 +52,9 @@ function playSequence() {
 }
 
 function flash(button) {
-  button.classList.add("flash");
+  button.classList.add("is-flashing");
   setTimeout(function () {
-    button.classList.remove("flash");
+    button.classList.remove("is-flashing");
   }, 350);
 }
 

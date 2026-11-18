@@ -12,7 +12,7 @@
   justify-content: space-between;
   margin-bottom: 20px;
   font-weight: 700;
-  color: var(--green-deep);
+  color: var(--blue-dark);
 }
 
 .simon-grid {
@@ -25,20 +25,20 @@
   aspect-ratio: 1;
   border: 0;
   border-radius: 14px;
-  background: var(--green-soft);
-  color: var(--green-deep);
+  background: var(--blue-soft);
+  color: var(--blue-dark);
   font: inherit;
   font-size: 1.6rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-.simon-btn:hover { background: #d3efe0; }
+.simon-btn:hover { background: var(--line); }
 
 .simon-btn:active,
 .simon-btn.pressed,
-.simon-btn.flash {
-  background: var(--green);
+.simon-btn.is-flashing {
+  background: var(--blue);
   color: #fff;
 }
 
@@ -48,11 +48,11 @@
   padding: 12px;
   border: 0;
   border-radius: 12px;
-  background: var(--green);
+  background: var(--blue);
   color: #fff;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
-.simon-start:hover { background: var(--green-dark); }
+.simon-start:hover { background: var(--blue-dark); }
