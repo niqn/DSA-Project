@@ -59,7 +59,7 @@ def study_next():
     session["study"] = queue.to_list()
     return redirect(url_for("study"))
 
-# f;ashcards / linkedlist
+# flashcards / linkedlist
 @app.route("/flashcards")
 def flashcards():
     cards = flashDSA.from_list(session.get("cards", [])).to_list()
@@ -98,7 +98,7 @@ def flashcards_delete():
     return redirect(url_for("flashcards"))
 
 
-
+# algorithms
 @app.route('/algorithms', methods=['GET'])
 def algorithms():
     return render_template('algorithms.html', formulas=NUMBER_THEORY_METADATA)
@@ -164,6 +164,7 @@ def algorithm_steps():
         "steps": steps
     })
 
+# number theory
 @app.route("/algorithms/number-theory", methods=["POST"])
 def number_theory():
     data = request.get_json(silent=True) or {}
@@ -197,6 +198,7 @@ def number_theory():
             "error": str(error)
         }), 400
 
+# binary tree
 @app.route('/binary-tree')
 def binary_tree():
     # Start a fresh tree whenever the page is opened/reloaded

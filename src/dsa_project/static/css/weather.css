@@ -97,7 +97,7 @@
 #streakPanel p { margin: 4px 0; }
 
 .dsa-note { 
-  font-size: 16rem; 
+  font-size: .85rem; 
   color: var(--muted); 
 }
 
